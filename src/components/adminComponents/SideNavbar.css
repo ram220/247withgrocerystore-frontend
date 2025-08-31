@@ -1,0 +1,39 @@
+.sidenav{
+    height:100vh;
+    width: 220px;
+    padding:0;
+    display: flex;
+    flex-direction: column;
+}
+.back {
+    width: 100%;
+    height: 50px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease, color 0.3s ease;
+    margin: 0;
+    font-weight: 600;       /* make text bolder */
+    font-size: 16px;        /* uniform size */
+}
+.back * {
+    margin: 0;
+    padding: 0;
+}
+
+.back a{
+    text-decoration: none;
+    
+}
+.back a{
+    color:black;
+}
+.back:hover a{
+    
+    color:#f0f0f0;
+}
+.back:hover{
+    background-color: rgb(255, 107, 2);
+}
