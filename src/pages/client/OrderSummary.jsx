@@ -6,7 +6,9 @@ function OrderSummary({ cart,setCart }) {
   const [mobile, setMobile] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("COD"); // default COD
   const userId = localStorage.getItem("userId");
-const API_URL = "https://two47withgrocery-backend.onrender.com";
+
+  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+
   useEffect(() => {
     axios
       .get(`${API_URL}/api/auth/user/${userId}`)

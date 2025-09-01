@@ -10,7 +10,8 @@ function SearchedPage({ addToCart }) {
   const queryParams = new URLSearchParams(location.search);
   const keyword = queryParams.get("keyword");
 
-  const API_URL = "https://two47withgrocery-backend.onrender.com"
+  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+
   useEffect(() => {
     if (!keyword) return;
 
@@ -18,20 +19,29 @@ function SearchedPage({ addToCart }) {
       .get(`${API_URL}/api/products/search?keyword=${keyword}`)
       .then((res) => {
         console.log("Search Results 👉", res.data);
-        setSearchedItems(res.data.products);
+        setSearchedItems(res.data.products || []);
       })
       .catch((err) => console.error(err));
   }, [keyword]);
 
   return (
     <div className="container mt-4">
+      <h3 className="mb-4">
+        Search Results for <span style={{ color: "rgb(252, 107, 3)" }}>"{keyword}"</span>
+      </h3>
+
       <div className="row">
         {searchedItems.length > 0 ? (
           searchedItems.map((item) => (
             <div key={item._id} className="col-md-3 mb-3">
               <div className="card" style={{ width: "18rem", height: "22rem" }}>
                 {/* + Button */}
-                <button className="plus-btn" onClick={() => addToCart(item)}>
+                <button
+                  disabled={!item.inStock}
+                  className="plus-btn"
+                  onClick={() => addToCart(item)}
+                  title={item.inStock ? "Add to cart" : "Out of stock"}
+                >
                   +
                 </button>
 
@@ -45,13 +55,51 @@ function SearchedPage({ addToCart }) {
                 <div className="card-body d-flex flex-column">
                   <h5 className="card-title text-truncate">{item.name}</h5>
                   <p className="card-text">₹{item.price}</p>
-                  <button className="shopnow-btn">Shop Now</button>
+
+                  {/* Shop Now / Out of Stock */}
+                  {item.inStock ? (
+                    <small
+                      style={{
+                        border: "none",
+                        borderRadius: "3px",
+                        backgroundColor: "rgb(252, 107, 3)",
+                        color: "white",
+                        width: "100px",
+                        height: "30px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Shop Now
+                    </small>
+                  ) : (
+                    <small
+                      style={{
+                        border: "none",
+                        borderRadius: "3px",
+                        backgroundColor: "rgba(252, 3, 3, 1)",
+                        color: "white",
+                        width: "100px",
+                        height: "30px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Out of Stock
+                    </small>
+                  )}
                 </div>
               </div>
             </div>
           ))
         ) : (
-          <h4>No products found for "{keyword}"</h4>
+          <div className="d-flex justify-content-center align-items-center w-100" style={{ height: "50vh" }}>
+            <h4>No products found for "{keyword}"</h4>
+          </div>
         )}
       </div>
     </div>

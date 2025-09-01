@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const API_URL = "https://two47withgrocery-backend.onrender.com";
-const API = `${API_URL}/api/cart`
+  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+const API = `${API_URL}/api/cart`;
 
 export const getCart = async (userId) => {
   const res = await axios.get(`${API}/${userId}`);

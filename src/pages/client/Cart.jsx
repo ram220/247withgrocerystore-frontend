@@ -5,7 +5,7 @@ import axios from 'axios'
 function Cart({ cart, setCart, removeItemFromCart }) {
         const userId = localStorage.getItem("userId");
 
-        const API_URL = "https://two47withgrocery-backend.onrender.com";
+  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
 
         useEffect(() => {
                 const fetchCart = async () => {

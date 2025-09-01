@@ -8,7 +8,7 @@ function AddProducts() {
   const [productCategory, setProductCategory] = useState('');
   const [productKeywords, setProductKeywords] = useState('');
 
-  const API_URL = "https://two47withgrocery-backend.onrender.com"; 
+  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com"; 
 
   const handleFileChange = (e, index) => {
     const file = e.target.files[0];

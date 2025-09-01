@@ -8,7 +8,8 @@ function ViewOrders() {
   const token = localStorage.getItem("token"); // Admin token
   const limit = 2; // orders per page
 
-  const API_URL = "https://two47withgrocery-backend.onrender.com";
+  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+
 
   // Fetch orders with pagination
   const fetchOrders = async (page = 1) => {

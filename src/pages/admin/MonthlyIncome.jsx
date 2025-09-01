@@ -10,29 +10,29 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-function MonthlyIncome() {
+function ViewOrders() {
   const [data, setData] = useState([]);
   const [totalIncome, setTotalIncome] = useState(0);
 
-  const API_URL = "https://two47withgrocery-backend.onrender.com";
+  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
 
   useEffect(() => {
-    const fetchIncome = async () => {
-      try {
-        const res = await axios.get(`${API_URL}/api/admin/monthly-income`);
-        const chartData = (res.data.monthlyIncome || []).map(item => ({
-          month: `${item._id.month}-${item._id.year}`,
-          totalIncome: item.totalIncome,
-        }));
-        setData(chartData);
-        setTotalIncome(res.data.totalIncome || 0);
-      } catch (err) {
-        console.error("Error fetching income data:", err);
-      }
-    };
+  const fetchIncome = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/api/admin/monthly-income`);
+      const chartData = (res.data.monthlyIncome || []).map(item => ({
+        month: `${item._id.month}-${item._id.year}`,
+        totalIncome: item.totalIncome,
+      }));
+      setData(chartData);
+      setTotalIncome(res.data.totalIncome || 0);
+    } catch (err) {
+      console.error("Error fetching income data:", err);
+    }
+  };
 
-    fetchIncome();
-  }, []);
+  fetchIncome();
+}, []);
 
   return (
     <div className="p-6">
@@ -44,7 +44,7 @@ function MonthlyIncome() {
           <XAxis dataKey="month" />
           <YAxis />
           <Tooltip />
-          <Bar dataKey="totalIncome" fill="rgb(252, 107, 3)" />
+          <Bar dataKey="totalIncome" fill="#fa6704ff" />
         </BarChart>
       </ResponsiveContainer>
 
@@ -56,4 +56,4 @@ function MonthlyIncome() {
   );
 }
 
-export default MonthlyIncome;
+export default ViewOrders;

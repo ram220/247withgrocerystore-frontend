@@ -14,7 +14,7 @@ function Login({setIsLoggedIn,setCart}){
     
     const regex=/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    const API_URL = "https://two47withgrocery-backend.onrender.com";
+  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
 
     const handleSubmit=async ()=>{
         const newErrors={email:"",password:""};

@@ -15,7 +15,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const API_URL = "https://two47withgrocery-backend.onrender.com";
+  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -31,10 +31,14 @@ function App() {
       }
 
       try {
-        const res = await axios.get(`${API_URL}/api/auth/verify`, {
+        const res = await axios.get(`${API_URL}/api/auth/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        if (!res.data.valid) {
+        if (res.data && res.data._id) {
+          setIsLoggedIn(true);
+          localStorage.setItem("userId", res.data._id);
+          localStorage.setItem("role", res.data.role);
+        } else {
           localStorage.clear();
           setIsLoggedIn(false);
         }

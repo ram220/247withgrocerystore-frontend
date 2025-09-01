@@ -7,14 +7,16 @@ function ViewProducts() {
   const [totalPages, setTotalPages] = useState(1);
   const limit = 6; // number of products per page
 
-  const API_URL = "https://two47withgrocery-backend.onrender.com";
+  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
   // Fetch products from backend
   const fetchProducts = async (pageNum = 1) => {
     try {
       const res = await axios.get(
         `${API_URL}/api/products?page=${pageNum}&limit=${limit}`
       );
-      setProducts(res.data.products);
+      const productsWithOriginal = res.data.products.map(p => ({ ...p, originalPrice: p.price }));
+
+      setProducts(productsWithOriginal);
       setTotalPages(res.data.totalPages);
     } catch (err) {
       console.error("Error fetching products:", err);
@@ -24,6 +26,30 @@ function ViewProducts() {
   useEffect(() => {
     fetchProducts(page);
   }, [page]);
+
+
+const handlePriceChange = async (id, newPrice) => {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await axios.put(
+      `${API_URL}/api/admin/products/${id}/price`,
+      { price: Number(newPrice) },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    setProducts(prev =>
+      prev.map(p => p._id === id ? { ...p, price: res.data.price, originalPrice: res.data.price } : p)
+    );
+
+    alert(`Price updated successfully for product!`);
+  } catch (err) {
+    console.error("Error updating price:", err.response?.data || err.message);
+    alert(err.response?.data?.message || "Failed to update price");
+  }
+};
+
+
+
 
   // Toggle in-stock status locally
 const toggleStock = async (id, currentStatus) => {
@@ -54,7 +80,7 @@ const toggleStock = async (id, currentStatus) => {
         className="container ms-0 p-2"
         style={{
           backgroundColor: "whitesmoke",
-          width: "600px",
+          width: "700px",
           minHeight: "400px",
         }}
       >
@@ -102,7 +128,29 @@ const toggleStock = async (id, currentStatus) => {
             <div style={{ flex: 1 }}>{p.category}</div>
 
             {/* Price */}
-            <div style={{ flex: 1 }}>₹{p.price}</div>
+            <div style={{ flex: 1, display: "flex", alignItems: "center", }}>
+                <input
+                  type="number"
+                  value={p.price}
+                  style={{ width: "60px" }}
+                  onChange={(e) => {
+                    // Update local state instantly
+                    setProducts((prev) =>
+                      prev.map((prod) =>
+                        prod._id === p._id ? { ...prod, price: e.target.value } : prod
+                      )
+                    );
+                  }}
+                />
+                <button
+                  className="btn btn-sm btn-success"
+                  style={{ backgroundColor: "#fa6704ff", border: "none" }}
+                  disabled={Number(p.price) === p.originalPrice}
+                  onClick={() => handlePriceChange(p._id, Number(p.price))}
+                >
+                  Update
+                </button>
+              </div>
 
             {/* In Stock toggle */}
             <div style={{ flex: 1 }}>

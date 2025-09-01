@@ -24,7 +24,7 @@ function Products({addToCart}){
     ]*/
 
         const [products,setProducts]=useState([]);
-        const API_URL = "https://two47withgrocery-backend.onrender.com"
+  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
    useEffect(() => {
   axios.get(`${API_URL}/api/products?page=1&limit=1000`) // fetch all products
     .then(res => {
