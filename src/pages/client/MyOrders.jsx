@@ -17,7 +17,10 @@ function Orders() {
       try {
         const res = await axios.get(`${API_URL}/api/orders/${userId}`);
         //const res = await axios.get(`http://localhost:5000/api/orders/${userId}`);
-        setOrders(res.data.orders || []);
+        const sortedOrders=(res.data.orders || []).sort(
+          (a,b)=>new Date(b.createdAT) - new Date(a.createdAt)
+        );
+        setOrders(sortedOrders);
       } catch (error) {
         console.error("Error fetching orders:", error);
         setOrders([]);
