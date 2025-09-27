@@ -17,6 +17,7 @@ function SearchedPage({ addToCart }) {
 
     axios
       .get(`${API_URL}/api/products/search?keyword=${keyword}`)
+      //.get(`http://localhost:5000/api/products/search?keyword=${keyword}`)
       .then((res) => {
         console.log("Search Results 👉", res.data);
         setSearchedItems(res.data.products || []);
@@ -47,6 +48,7 @@ function SearchedPage({ addToCart }) {
 
                 <img
                   src={`${API_URL}${item.image}`}
+                  //src={`http://localhost:5000${item.image}`}
                   alt={item.name}
                   className="card-img-top"
                   style={{ height: "180px", objectFit: "cover" }}

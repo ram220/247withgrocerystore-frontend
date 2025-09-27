@@ -13,9 +13,11 @@ function Navbar({cart,setCart,isLoggedIn,setIsLoggedIn}){
   navigate("/"); // redirect home
 };
 
-  const handelSearch=()=>{
+  const handelSearch=(e)=>{
+    e.preventDefault();
         if(searchQuery.trim()){
             navigate(`/search?keyword=${searchQuery}`)
+            setSearchQuery("");
         }
   }
 
@@ -34,10 +36,12 @@ function Navbar({cart,setCart,isLoggedIn,setIsLoggedIn}){
                             }</li>
                     </ul>
 
-                    <div className='search-box'>
+                    <form onSubmit={handelSearch} className='search-box'>
                         <input type='text' value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder='search...'/>
-                        <img onClick={handelSearch} className='search-icon' src="searchicon.png"></img>
-                    </div>
+                        <button type="submit" className='search-btn'>
+                        <img className='search-icon' src="searchicon.png" alt="search"/>
+                        </button>
+                    </form>
 
                     <div className='cart'>
                         <Link to="/cart" className="cart-icon">

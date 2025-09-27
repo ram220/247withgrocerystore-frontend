@@ -7,6 +7,7 @@ import ClientLayout from '../layouts/ClientLayout';
 import Cart from '../pages/client/Cart';
 import SearchedPage from '../pages/client/SearchedPage';
 import MyOrders from '../pages/client/MyOrders';
+import ChangeAddress from '../pages/client/ChangeAddress';
 
 import { 
     addToCart as addToCartService,
@@ -55,6 +56,7 @@ function AppRoutes({cart,setCart,isLoggedIn,setIsLoggedIn}){
                     <Route path="register" element={<Register/>}/>
                     <Route path="/cart" element={<Cart cart={cart} setCart={setCart} removeItemFromCart={removeItemFromCart}/>}/>
                     <Route path="/search" element={<SearchedPage addToCart={addToCart}/>}/>
+                    <Route path="/change-address" element={<ChangeAddress />} />
                     
                 </Route>
             </Routes>

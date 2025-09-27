@@ -21,12 +21,17 @@ function Products({addToCart}){
         {id:15,name:"Yogurt",category:"dairy",price:50,image:"yogurt.png"},
         {id:16,name:"chicken",category:"non-veg",price:50,image:"chicken-breast.png"},
         
-    ]*/
+    ]
+    <img  src={`http://localhost:5000${p.image}`} className='card-img-top' style={{ height: "180px", objectFit: "cover" }}/>
+
+    <img  src={`${API_URL}${p.image}`} className='card-img-top' style={{ height: "180px", objectFit: "cover" }}/>    
+    */
 
         const [products,setProducts]=useState([]);
   const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
    useEffect(() => {
   axios.get(`${API_URL}/api/products?page=1&limit=1000`) // fetch all products
+  //axios.get(`http://localhost:5000/api/products?page=1&limit=1000`)
     .then(res => {
       setProducts(res.data.products); // ✅ set only the array
     })
@@ -50,7 +55,7 @@ function Products({addToCart}){
                 {
                     filteredProducts.map((p)=>(<div className='card' key={p._id} style={{ width: "18rem", height:"22rem"}}>
                         <button disabled={!p.inStock} className='plus-btn' onClick={()=>addToCart(p)} title={p.inStock ? "Add to cart" : "Out of stock"}>+</button>
-                        <img  src={`${API_URL}${p.image}`} className='card-img-top' style={{ height: "180px", objectFit: "cover" }}/>
+                    <img  src={`${API_URL}${p.image}`} className='card-img-top' style={{ height: "180px", objectFit: "cover" }}/>    
                         <div className='card-body d-flex flex-column'>
                             <h4 className='card-title text-truncate'>{p.name}</h4>
                             <h5 className='price'>₹ {p.price}</h5>
@@ -62,7 +67,7 @@ function Products({addToCart}){
       borderRadius: '3px',
       backgroundColor: 'rgb(252, 107, 3)',
       color: 'white',
-      width: '100px',
+      width: '150px',
       height: '30px',
       display: 'flex',
       justifyContent: 'center',
@@ -70,7 +75,7 @@ function Products({addToCart}){
       fontWeight: 'bold',
     }}
   >
-    Shop Now
+    Click + to add to Cart
   </small>):(<small
     style={{
       border: 'none',

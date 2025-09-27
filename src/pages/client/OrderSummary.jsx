@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function OrderSummary({ cart,setCart }) {
@@ -7,11 +8,14 @@ function OrderSummary({ cart,setCart }) {
   const [paymentMethod, setPaymentMethod] = useState("COD"); // default COD
   const userId = localStorage.getItem("userId");
 
+  const navigate=useNavigate();
+
   const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
 
   useEffect(() => {
     axios
       .get(`${API_URL}/api/auth/user/${userId}`)
+      //.get(`http://localhost:5000/api/auth/user/${userId}`)
       .then((res) => {
         setAddress(res.data.address || "");
         setMobile(res.data.mobile || "");
@@ -46,16 +50,58 @@ const placeOrder = async () => {
   if (paymentMethod === "UPI") {
   try {
     const res = await axios.post(`${API_URL}/api/payment/init`, {
+      //const res = await axios.post(`http://localhost:5000/api/payment/init`, {
       amount: totalAmountWithTax,
       userId,
       items: formattedItems
     });
 
-    // Instead of opening blank page, redirect in same tab
-    window.location.href = res.data.redirectUrl;
+   const options = {
+      key: res.data.key,
+      amount: res.data.amount,
+      currency: res.data.currency,
+      name: "247 Grocery Store",
+      description: "Order Payment",
+      order_id: res.data.orderId,
+      handler: async function (response) {
+        try {
+          const verifyRes = await axios.post(`${API_URL}/api/payment/verify`, {
+           // const verifyRes = await axios.post(`http://localhost:5000/api/payment/verify`, {
+            ...response,
+            tempPaymentId: res.data.tempPaymentId, // link back to tempPayment
+          });
+
+          if (verifyRes.data.success) {
+            alert("✅ Payment successful! Order placed.");
+            setCart([]); // clear cart in frontend
+          } else {
+            alert("❌ Payment verification failed");
+          }
+        } catch (err) {
+          console.error("Verify error", err);
+          alert("Verification error");
+        }
+      },
+      prefill: {
+          name: localStorage.getItem("userName") || "Customer",
+          email: localStorage.getItem("userEmail") || "customer@example.com",
+          contact: mobile || "9999999999",
+        },
+      theme: {
+        color: "#fc6b03", // your orange theme
+      },
+    };
+
+    if (!window.Razorpay) {
+      alert("Razorpay SDK not loaded. Please refresh the page.");
+      return;
+    }
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+
   } catch (err) {
     console.error(err);
-    alert("Failed to initiate UPI payment");
+    alert("Failed to initiate Razorpay payment");
   }
   return; // stop COD logic
 }
@@ -63,6 +109,7 @@ const placeOrder = async () => {
   // For COD
   try {
     const res = await axios.post(`${API_URL}/api/orders`, {
+     // const res = await axios.post(`http://localhost:5000/api/orders`, {
       userId,
       items: formattedItems,
       totalAmount,
@@ -92,9 +139,24 @@ const placeOrder = async () => {
         <strong>
           <h6 className="mb-2">DELIVERY ADDRESS</h6>
         </strong>
-        <div className="d-flex gap-1">
-          <small className="mb-2">{address || "No Address Found"},</small>
-          <small>{mobile}</small>
+        <div className="d-flex justify-content-between align-items-center">
+          <div>
+            <small className="mb-2">{address || "No Address Found"},</small>
+            <small>{mobile}</small>
+            </div>
+
+            <button
+              onClick={() => navigate("/change-address")}
+              style={{
+                border: "none",
+                background: "none",
+                color: "rgb(252, 107, 3)",
+                cursor: "pointer",
+                fontSize: "0.9rem",
+                textDecoration: "none"
+              }}>
+              Change
+            </button>
         </div>
 
         <div className="payment-method mt-2 border-bottom">

@@ -5,20 +5,24 @@ const API = `${API_URL}/api/cart`;
 
 export const getCart = async (userId) => {
   const res = await axios.get(`${API}/${userId}`);
+  //const res = await axios.get(`http://localhost:5000/api/cart/${userId}`)
   return res.data;
 };
 
 export const addToCart = async (userId, productId, quantity = 1) => {
   const res = await axios.post(`${API}/add`, { userId, productId, quantity });
+  //const res = await axios.post("http://localhost:5000/api/cart/add", { userId, productId, quantity })
   return res.data;
 };
 
 export const removeFromCart = async (userId, productId) => {
   const res = await axios.delete(`${API}/remove/${userId}/${productId}`);
+  //const res = await axios.delete(`http://localhost:5000/api/cart/remove/${userId}/${productId}`);
   return res.data;
 };
 
 export const clearCart = async (userId) => {
   const res = await axios.delete(`${API}/clear/${userId}`);
+  //const res = await axios.delete(`http://localhost:5000/api/cart/clear/${userId}`);
   return res.data;
 };
