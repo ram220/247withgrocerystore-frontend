@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link,useNavigate } from "react-router-dom";
 import Register from "./Register";
 import axios from 'axios'
 import { getCart } from "../../services/cartServices"; // ✅ import cart service
-function Login({setIsLoggedIn,setCart}){
+function Login({setIsUserLoggedIn,setIsAdminLoggedIn,setCart}){
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
     const [errors,setErrors]=useState({
@@ -42,35 +42,40 @@ function Login({setIsLoggedIn,setCart}){
        if(newErrors.email || newErrors.password) return;
 
        try {
-     const res = await axios.post(`${API_URL}/api/auth/login`, {
-        //const res = await axios.post(`http://localhost:5000/api/auth/login`, {
+     //const res = await axios.post(`${API_URL}/api/auth/login`, {
+        const res = await axios.post(`http://localhost:5000/api/auth/login`, {
         email,
         password,
       });
 
-      // ✅ Save token & user info
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("role", res.data.user.role);
-      localStorage.setItem("userId", res.data.user._id);
-      localStorage.setItem("address", res.data.user.address);
+      const { token, user } = res.data;
 
-      setIsLoggedIn(true);
+  if (user.role === "admin") {
+    // ✅ Admin login
+    localStorage.setItem("adminToken", token);
+    localStorage.setItem("adminId", user._id);
+    localStorage.setItem("role", "admin");
+    setIsAdminLoggedIn(true);
+    alert("Admin Login Successful");
+    navigate("/admin/addproducts");
+  } else {
+    // ✅ User login
+    localStorage.setItem("userToken", token);
+    localStorage.setItem("userId", user._id);
+    localStorage.setItem("address", user.address);
+    localStorage.setItem("role", "user");
+    setIsUserLoggedIn(true);
 
-      // ✅ Fetch cart immediately after login
-      const cartData = await getCart(res.data.user._id);
-      setCart(cartData.items || []);
-
-      alert("Login Successful");
-
-      if (res.data.user.role === "admin") {
-        navigate("/admin/addproducts");
-      } else {
-        navigate("/");
-      }
+    alert("User Login Successful");
+    // Fetch cart immediately after login
+    const cartData = await getCart(user._id,token);
+    setCart(cartData.items || []);
+    navigate("/");
+        }
     }
-       catch(err){
-            console.error(err);
-            alert(err.response?.data?.message || "Login failed ❌");
+    catch(err){
+    console.error(err);
+        alert(err.response?.data?.message || "Login failed ❌");
        }
     }
 

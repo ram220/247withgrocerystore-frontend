@@ -26,8 +26,8 @@ function Register() {
     e.preventDefault();
 
     try {
-       axios.post(`${API_URL}/api/auth/register`, formData);
-      //axios.post("http://localhost:5000/api/auth/register", formData);
+       //axios.post(`${API_URL}/api/auth/register`, formData);
+      axios.post("http://localhost:5000/api/auth/register", formData);
       alert("Registered successfully ✅");
       navigate('/login')
     } catch (err) {

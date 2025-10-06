@@ -14,7 +14,7 @@ import {
     removeFromCart as removeFromCartService 
 } from "../services/cartServices";
 
-function AppRoutes({cart,setCart,isLoggedIn,setIsLoggedIn}){
+function AppRoutes({cart,setCart,isLoggedIn,setIsUserLoggedIn,setIsAdminLoggedIn}){
     const userId = localStorage.getItem("userId");
    // ✅ Wrapper for adding item
     const addToCart = async (product) => {
@@ -48,9 +48,9 @@ function AppRoutes({cart,setCart,isLoggedIn,setIsLoggedIn}){
     return(
         <>
             <Routes>
-                <Route element={<ClientLayout cart={cart} setCart={setCart} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}>
+                <Route element={<ClientLayout cart={cart} setCart={setCart} isLoggedIn={isLoggedIn} setIsUserLoggedIn={setIsUserLoggedIn} />}>
                     <Route path="/" element={<Home/>}/>
-                    <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} setCart={setCart}/>}/>
+                    <Route path="/login" element={<Login setIsUserLoggedIn={setIsUserLoggedIn} setCart={setCart}  setIsAdminLoggedIn={setIsAdminLoggedIn}/>}/>
                     <Route path="/products" element={<Products addToCart={addToCart}/>}/>
                     <Route path="/myorders" element={<MyOrders/>}/>
                     <Route path="register" element={<Register/>}/>

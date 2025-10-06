@@ -13,8 +13,8 @@ function ChangeAddress() {
 
   // Fetch current details
   useEffect(() => {
-    //axios.get(`${LOCAL_URL}/api/auth/user/${userId}`)
-    axios.get(`${API_URL}/api/auth/user/${userId}`)
+    axios.get(`${LOCAL_URL}/api/auth/user/${userId}`)
+    //axios.get(`${API_URL}/api/auth/user/${userId}`)
       .then(res => {
         setAddress(res.data.address || "");
         setMobile(res.data.mobile || "");
@@ -25,8 +25,8 @@ function ChangeAddress() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      //const res = await axios.put(`${LOCAL_URL}/api/auth/user/${userId}`, {
-      const res = await axios.put(`${API_URL}/api/auth/user/${userId}`, {
+      const res = await axios.put(`${LOCAL_URL}/api/auth/user/${userId}`, {
+      //const res = await axios.put(`${API_URL}/api/auth/user/${userId}`, {
         address,
         mobile
       });

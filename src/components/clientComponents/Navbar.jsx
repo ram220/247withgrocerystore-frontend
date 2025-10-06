@@ -1,15 +1,17 @@
 import {Link,useNavigate} from 'react-router-dom';
 import  {useState,useEffect} from 'react';
+import { jwtDecode } from "jwt-decode";
 import './Navbar.css'
-function Navbar({cart,setCart,isLoggedIn,setIsLoggedIn}){
+function Navbar({cart,setCart,isLoggedIn,setIsUserLoggedIn}){
     const [searchQuery,setSearchQuery]=useState("");
     const navigate=useNavigate();
 
     const handleLogout = () => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("userId");  // 👈 remove this too
+  localStorage.removeItem("userToken");
+  localStorage.removeItem("userId");
+  localStorage.removeItem("role");  
   setCart([]);
-  setIsLoggedIn(false);
+  setIsUserLoggedIn(false)
   navigate("/"); // redirect home
 };
 
@@ -20,6 +22,28 @@ function Navbar({cart,setCart,isLoggedIn,setIsLoggedIn}){
             setSearchQuery("");
         }
   }
+
+  useEffect(() => {
+    const checkToken = () => {
+      const token = localStorage.getItem("userToken");
+      if (!token) return;
+
+      try {
+        const decoded = jwtDecode(token);
+        const currentTime = Date.now() / 1000; // in seconds
+        if (decoded.exp < currentTime) {
+          handleLogout(); // token expired → log out
+          alert("Session expired! Please login again.");
+        }
+      } catch (err) {
+        handleLogout(); // invalid token → log out
+      }
+    };
+
+    const interval = setInterval(checkToken, 1000); // check every second
+    return () => clearInterval(interval);
+  }, []);
+
 
     
     return(

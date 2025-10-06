@@ -12,46 +12,79 @@ import axios from 'axios';
 
 function App() {
   const [cart, setCart] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  
+    // Admin states
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
 
+  const decodeToken = (token) => {
+  try {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split('')
+        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+        .join('')
+    );
+    return JSON.parse(jsonPayload);
+  } catch (e) {
+    return null;
+  }
+};
+
+
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const userId = localStorage.getItem("userId");
+  const verifyTokens = () => {
+    const userToken = localStorage.getItem("userToken");
+    const adminToken = localStorage.getItem("adminToken");
 
-    // ✅ Assume logged in if token exists
-    if (token && userId) setIsLoggedIn(true);
-
-    const verifyToken = async () => {
-      if (!token) {
-        setLoading(false);
-        return;
+    if (userToken) {
+      const decoded = decodeToken(userToken);
+      if (decoded && decoded.exp * 1000 > Date.now()) {
+        setIsUserLoggedIn(true);
+        const remainingTime = decoded.exp * 1000 - Date.now();
+        setTimeout(() => {
+          localStorage.removeItem("userToken");
+          localStorage.removeItem("userId");
+          setIsUserLoggedIn(false);
+          window.location.href = "/login";
+        }, remainingTime);
+      } else {
+        localStorage.removeItem("userToken");
+        localStorage.removeItem("userId");
       }
+    }
 
-      try {
-        const res = await axios.get(`${API_URL}/api/auth/profile`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        if (res.data && res.data._id) {
-          setIsLoggedIn(true);
-          localStorage.setItem("userId", res.data._id);
-          localStorage.setItem("role", res.data.role);
-        } else {
-          localStorage.clear();
-          setIsLoggedIn(false);
-        }
-      } catch (err) {
-        console.error("Token verification error:", err.message);
-        // ❌ Do NOT clear token immediately
-      } finally {
-        setLoading(false);
+    if (adminToken) {
+      const decoded = decodeToken(adminToken);
+      if (decoded && decoded.exp * 1000 > Date.now()) {
+        setIsAdminLoggedIn(true);
+
+         // Auto-logout for admin
+        const remainingTime = decoded.exp * 1000 - Date.now();
+        setTimeout(() => {
+          localStorage.removeItem("adminToken");
+          localStorage.removeItem("adminId");
+          setIsAdminLoggedIn(false);
+          alert("Admin session expired! Please login again.");
+          window.location.href = "/login";
+        }, remainingTime);
+      } else {
+        localStorage.removeItem("adminToken");
+        localStorage.removeItem("adminId");
       }
-    };
+    }
 
-    verifyToken();
-  }, []);
+    setLoading(false);
+  };
+
+  verifyTokens();
+}, []);
+
 
   if (loading) {
     return <div style={{ textAlign: "center", marginTop: "50px" }}>Loading...</div>;
@@ -66,12 +99,13 @@ function App() {
             <ClientRoutes
               cart={cart}
               setCart={setCart}
-              isLoggedIn={isLoggedIn}
-              setIsLoggedIn={setIsLoggedIn}
+              isLoggedIn={isUserLoggedIn}
+              setIsUserLoggedIn={setIsUserLoggedIn}
+              setIsAdminLoggedIn={setIsAdminLoggedIn}
             />
           }
         />
-        <Route path="/admin" element={<AdminLayout />}>
+        <Route path="/admin" element={<AdminLayout isAdminLoggedIn={isAdminLoggedIn}/>}>
           <Route path="addproducts" element={<AddProducts />} />
           <Route path="viewproducts" element={<ViewProducts />} />
           <Route path="vieworders" element={<ViewOrders />} />

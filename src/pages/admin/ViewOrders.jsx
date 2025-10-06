@@ -5,7 +5,7 @@ function ViewOrders() {
   const [orders, setOrders] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const token = localStorage.getItem("token"); // Admin token
+  const token = localStorage.getItem("adminToken"); // Admin token
   const limit = 2; // orders per page
 
   const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
@@ -19,7 +19,9 @@ function ViewOrders() {
         return;
       }
 
-      const res = await axios.get(`${API_URL}/api/admin/all-orders?page=${page}&limit=${limit}`, {
+      //const res = await axios.get(`${API_URL}/api/admin/all-orders?page=${page}&limit=${limit}`, {
+      const res = await axios.get(`http://localhost:5000/api/admin/all-orders?page=${page}&limit=${limit}`, {
+
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -40,7 +42,8 @@ function ViewOrders() {
       if (!token) return;
 
       await axios.put(
-        `${API_URL}/api/admin/update-status/${orderId}`,
+        //`${API_URL}/api/admin/update-status/${orderId}`,
+        `http://localhost:5000/api/admin/update-state/${orderId}`,
         { status },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -79,7 +82,8 @@ function ViewOrders() {
                 {order.items.map((item) => (
                   <div key={item._id} className="col-md-6 d-flex align-items-center mb-2">
                     <img
-                      src={`${API_URL}${item.productId.image}`}
+                      //src={`${API_URL}${item.productId.image}`}
+                      src={`http://localhost:5000${item.productId.image}`}
                       alt={item.productId.name}
                       style={{ height: "60px", width: "60px", marginRight: "10px" }}
                     />
