@@ -40,8 +40,8 @@ function AddProducts() {
     try {
       // IMPORTANT: do NOT set Content-Type manually; let the browser add the boundary
       await axios.post(
-        //`${API_URL}/api/products`,
-        "http://localhost:5000/api/products",
+        `${API_URL}/api/products`,
+        //"http://localhost:5000/api/products",
         formData,
         { headers: { Authorization: `Bearer ${token}` } }
       );

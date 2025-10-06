@@ -14,8 +14,8 @@ function OrderSummary({ cart,setCart }) {
 
   useEffect(() => {
     axios
-      //.get(`${API_URL}/api/auth/user/${userId}`)
-      .get(`http://localhost:5000/api/auth/user/${userId}`)
+      .get(`${API_URL}/api/auth/user/${userId}`)
+      //.get(`http://localhost:5000/api/auth/user/${userId}`)
       .then((res) => {
         setAddress(res.data.address || "");
         setMobile(res.data.mobile || "");
@@ -49,8 +49,8 @@ const placeOrder = async () => {
 
   if (paymentMethod === "UPI") {
   try {
-    //const res = await axios.post(`${API_URL}/api/payment/init`, {
-      const res = await axios.post(`http://localhost:5000/api/payment/init`, {
+    const res = await axios.post(`${API_URL}/api/payment/init`, {
+      //const res = await axios.post(`http://localhost:5000/api/payment/init`, {
       amount: totalAmountWithTax,
       userId,
       items: formattedItems
@@ -65,8 +65,8 @@ const placeOrder = async () => {
       order_id: res.data.orderId,
       handler: async function (response) {
         try {
-          //const verifyRes = await axios.post(`${API_URL}/api/payment/verify`, {
-            const verifyRes = await axios.post(`http://localhost:5000/api/payment/verify`, {
+          const verifyRes = await axios.post(`${API_URL}/api/payment/verify`, {
+            //const verifyRes = await axios.post(`http://localhost:5000/api/payment/verify`, {
             ...response,
             tempPaymentId: res.data.tempPaymentId, // link back to tempPayment
           });
@@ -108,8 +108,8 @@ const placeOrder = async () => {
 
   // For COD
   try {
-    //const res = await axios.post(`${API_URL}/api/orders`, {
-      const res = await axios.post(`http://localhost:5000/api/orders`, {
+    const res = await axios.post(`${API_URL}/api/orders`, {
+      //const res = await axios.post(`http://localhost:5000/api/orders`, {
       userId,
       items: formattedItems,
       totalAmount,
