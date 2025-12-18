@@ -57,7 +57,6 @@ function AppRoutes({cart,setCart,isLoggedIn,setIsUserLoggedIn,setIsAdminLoggedIn
                     <Route path="/cart" element={<Cart cart={cart} setCart={setCart} removeItemFromCart={removeItemFromCart}/>}/>
                     <Route path="/search" element={<SearchedPage addToCart={addToCart}/>}/>
                     <Route path="/change-address" element={<ChangeAddress />} />
-                    
                 </Route>
             </Routes>
         </>

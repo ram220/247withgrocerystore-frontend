@@ -3,25 +3,33 @@ import  {useState,useEffect} from 'react';
 import { jwtDecode } from "jwt-decode";
 import './Navbar.css'
 function Navbar({cart,setCart,isLoggedIn,setIsUserLoggedIn}){
+
     const [searchQuery,setSearchQuery]=useState("");
     const navigate=useNavigate();
 
     const handleLogout = () => {
-  localStorage.removeItem("userToken");
-  localStorage.removeItem("userId");
-  localStorage.removeItem("role");  
-  setCart([]);
-  setIsUserLoggedIn(false)
-  navigate("/"); // redirect home
-};
+      localStorage.removeItem("userToken");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("role");  
+      setCart([]);
+      setIsUserLoggedIn(false)
+      navigate("/"); // redirect home
+    };
 
-  const handelSearch=(e)=>{
-    e.preventDefault();
-        if(searchQuery.trim()){
-            navigate(`/search?keyword=${searchQuery}`)
-            setSearchQuery("");
-        }
-  }
+    const handelSearch = (e) => {
+      e.preventDefault();
+
+      const cleanedQuery = searchQuery
+        .toLowerCase()
+        .replace(/[.,!?]/g, "")
+        .trim();
+
+      if (cleanedQuery) {
+        navigate(`/search?keyword=${cleanedQuery}`);
+        setSearchQuery("");
+      }
+    };
+
 
   useEffect(() => {
     const checkToken = () => {
@@ -45,6 +53,44 @@ function Navbar({cart,setCart,isLoggedIn,setIsUserLoggedIn}){
   }, []);
 
 
+    // for voice search
+
+
+  const [listening, setListening] = useState(false);
+// web speech api
+
+  const SpeechRecognition =
+  window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  let recognition = null;
+
+  if (SpeechRecognition) {
+    recognition = new SpeechRecognition();
+    recognition.lang = "en-IN";
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    recognition.onstart = () => setListening(true);
+
+    recognition.onend = () => setListening(false);
+
+    recognition.onresult = (event) => {
+        let voiceText = event.results[0][0].transcript;
+
+        voiceText = voiceText
+          .toLowerCase()
+          .replace(/[.,!?]/g, "")
+          .trim();
+
+        setSearchQuery(voiceText);
+
+        navigate(`/search?keyword=${voiceText}`);
+        setSearchQuery("");
+
+        console.log("Voice Text:", voiceText);
+      };
+  };
+
     
     return(
         <>
@@ -61,11 +107,26 @@ function Navbar({cart,setCart,isLoggedIn,setIsUserLoggedIn}){
                     </ul>
 
                     <form onSubmit={handelSearch} className='search-box'>
-                        <input type='text' value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder='search...'/>
-                        <button type="submit" className='search-btn'>
-                        <img className='search-icon' src="searchicon.png" alt="search"/>
-                        </button>
-                    </form>
+  <input
+    type='text'
+    value={searchQuery}
+    onChange={(e) => setSearchQuery(e.target.value)}
+    placeholder='search...'
+  />
+
+
+
+  {SpeechRecognition && (
+    <button
+      type="button"
+      className="voice-btn"
+      onClick={() => recognition.start()}
+    >
+      {listening ? "🎙️" : "🎤"}
+    </button>
+  )}
+</form>
+
 
                     <div className='cart'>
                         <Link to="/cart" className="cart-icon">

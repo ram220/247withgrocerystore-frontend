@@ -43,7 +43,7 @@ function ViewOrders() {
 
       await axios.put(
         `${API_URL}/api/admin/update-status/${orderId}`,
-       // `http://localhost:5000/api/admin/update-state/${orderId}`,
+       //`http://localhost:5000/api/admin/update-state/${orderId}`,
         { status },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -83,7 +83,7 @@ function ViewOrders() {
                   <div key={item._id} className="col-md-6 d-flex align-items-center mb-2">
                     <img
                       src={`${API_URL}${item.productId.image}`}
-                     // src={`http://localhost:5000${item.productId.image}`}
+                     //src={`http://localhost:5000${item.productId.image}`}
                       alt={item.productId.name}
                       style={{ height: "60px", width: "60px", marginRight: "10px" }}
                     />
