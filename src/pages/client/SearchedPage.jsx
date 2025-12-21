@@ -75,7 +75,7 @@ function SearchedPage({ addToCart }) {
                         justifyContent: "center",
                         alignItems: "center",
                         fontWeight: "bold",
-
+                        cursor:"pointer"
                       }}
                     >
                       view more
