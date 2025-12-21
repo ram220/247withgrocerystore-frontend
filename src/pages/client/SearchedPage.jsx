@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function SearchedPage({ addToCart }) {
   const [searchedItems, setSearchedItems] = useState([]);
   const location = useLocation();
+
+  const navigate=useNavigate();
 
   // extract ?keyword=value
   const queryParams = new URLSearchParams(location.search);
@@ -61,7 +63,7 @@ function SearchedPage({ addToCart }) {
                   {/* Shop Now / Out of Stock */}
                   {item.inStock ? (
                     <small
-                    onClick={() => navigate(`/product_details/${p._id}`)}
+                    onClick={() => navigate(`/product_details/${item._id}`)}
                       style={{
                         border: "none",
                         borderRadius: "3px",
