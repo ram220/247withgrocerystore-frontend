@@ -46,7 +46,7 @@ function ProductDetails({ addToCart }) {
 
         <div className="col-md-7">
           <h2>{product.name}</h2>
-          <h4 className="text-success" style={{backgroundColor:"rgb(252, 107, 3)"}}>₹ {product.price}</h4>
+          <h4 className="text-success">₹ {product.price}</h4>
           
           {/* Product Description */}
           {product.description && (
@@ -55,7 +55,7 @@ function ProductDetails({ addToCart }) {
 
           {product.inStock ? (
             <button
-              className="btn btn-warning mt-3"
+              className="mt-3" style={{backgroundColor:"rgb(252, 107, 3)"}}
               onClick={() => addToCart(product)}
             >
               Add to Cart
