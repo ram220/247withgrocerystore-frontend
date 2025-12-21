@@ -108,8 +108,8 @@ const placeOrder = async () => {
 
   // For COD
   try {
-    //const res = await axios.post(`${API_URL}/api/orders`, {
-      const res = await axios.post(`http://localhost:5000/api/orders`, {
+    const res = await axios.post(`${API_URL}/api/orders`, {
+    //  const res = await axios.post(`http://localhost:5000/api/orders`, {
       userId,
       items: formattedItems,
       totalAmount,

@@ -12,8 +12,8 @@ function Cart({ cart, setCart, removeItemFromCart }) {
                 const fetchCart = async () => {
                 if (!userId) return;   // 👈 stop if no user
                 try {
-                //const res = await axios.get(`${API_URL}/api/cart/${userId}`);
-                const res = await axios.get(`http://localhost:5000/api/cart/${userId}`);
+                const res = await axios.get(`${API_URL}/api/cart/${userId}`);
+                //const res = await axios.get(`http://localhost:5000/api/cart/${userId}`);
                 setCart(res.data.items);
                 } catch (err) {
                 console.error("Error fetching cart", err);
@@ -61,8 +61,8 @@ function Cart({ cart, setCart, removeItemFromCart }) {
                             <div key={p._id} className="row align-items-center py-3 border-bottom">
                             <div className="col-md-6 d-flex align-items-center">
                                 <img
-                                //src={`${API_URL}${p.productId.image}`}
-                                src={`http://localhost:5000${p.productId.image}`}
+                                src={`${API_URL}${p.productId.image}`}
+                                //src={`http://localhost:5000${p.productId.image}`}
                                 alt={p.productId.name}
                                 style={{ height: "60px", width: "60px", marginRight: "10px" }}
                                 />

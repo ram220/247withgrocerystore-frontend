@@ -6,7 +6,8 @@ import { useParams, useNavigate } from "react-router-dom";
 function ProductDetails({ addToCart }) {
   const { id } = useParams();
   console.log("Product ID from URL:", id, id.length);
-  const API_URL = "http://localhost:5000";
+    const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  //const API_URL = "http://localhost:5000";
   const [product, setProduct] = useState(null);
   const [recommended, setRecommended] = useState([]);
 
