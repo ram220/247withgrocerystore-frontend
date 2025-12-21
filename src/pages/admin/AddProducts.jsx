@@ -7,6 +7,7 @@ function AddProducts() {
   const [productPrice, setProductPrice] = useState('');
   const [productCategory, setProductCategory] = useState('');
   const [productKeywords, setProductKeywords] = useState('');
+  const [productDescription,setProductDescription]=useState('');
 
   const API_URL = "https://two47withgrocerystoreram-backend.onrender.com"; 
 
@@ -30,6 +31,7 @@ function AddProducts() {
     formData.append("price", productPrice);
     // send keywords as a simple comma-separated string (backend splits it)
     formData.append("keywords", productKeywords);
+    formData.append("description",productDescription);
 
     // append all selected files under the field name "images"
     if (image?.file) {
@@ -40,8 +42,8 @@ function AddProducts() {
     try {
       // IMPORTANT: do NOT set Content-Type manually; let the browser add the boundary
       await axios.post(
-        `${API_URL}/api/products`,
-        //"http://localhost:5000/api/products",
+        //`${API_URL}/api/products`,
+        "http://localhost:5000/api/products",
         formData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -53,6 +55,7 @@ function AddProducts() {
       setProductCategory('');
       setProductPrice('');
       setProductKeywords('');
+      setProductDescription('');
       setImage(null);
     } catch (err) {
       console.log(err);
@@ -149,6 +152,17 @@ function AddProducts() {
               value={productKeywords}
               onChange={(e) => { setProductKeywords(e.target.value) }}
               style={{ border: "1px solid", borderRadius: "3px", width: "230px" }}
+            />
+          </div>
+
+          <div className="mt-2">
+            <h5>Product Description</h5>
+            <textarea
+              type="text"
+              placeholder="Enter anything about the product"
+              value={productDescription}
+              onChange={(e) => { setProductDescription(e.target.value) }}
+              style={{ border: "1px solid", borderRadius: "3px", width: "500px", height:"150px"}}
             />
           </div>
 

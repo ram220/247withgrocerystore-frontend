@@ -9,6 +9,7 @@ import ViewProducts from './pages/admin/ViewProducts';
 import MonthlyIncome from './pages/admin/MonthlyIncome';
 import ViewOrders from './pages/admin/ViewOrders';
 import axios from 'axios';
+import Chatbot from './components/clientComponents/Chatbot';
 
 function App() {
   const [cart, setCart] = useState([]);

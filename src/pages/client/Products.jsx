@@ -2,7 +2,11 @@ import './Products.css'
 import {useEffect, useState} from 'react'
 import axios from 'axios';
 import Footer from '../../components/clientComponents/Footer'
+import { useNavigate } from 'react-router-dom';
 function Products({addToCart}){
+
+  const navigate = useNavigate();
+
     /*const products=[
         {id:1,name:"banana",category:"fruits",price:10,image:"banana.png"},
         {id:2,name:"broccoli",category:"vegetables",price:50,image:"broccoli.png"},
@@ -30,8 +34,8 @@ function Products({addToCart}){
         const [products,setProducts]=useState([]);
   const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
    useEffect(() => {
-  axios.get(`${API_URL}/api/products?page=1&limit=1000`) // fetch all products
-  //axios.get(`http://localhost:5000/api/products?page=1&limit=1000`)
+  //axios.get(`${API_URL}/api/products?page=1&limit=1000`) // fetch all products
+  axios.get(`http://localhost:5000/api/products?page=1&limit=1000`)
     .then(res => {
       setProducts(res.data.products); // ✅ set only the array
     })
@@ -53,29 +57,31 @@ function Products({addToCart}){
         </div>
         <div className='d-flex flex-wrap justify-content-center gap-5 mt-4'>
                 {
-                    filteredProducts.map((p)=>(<div className='card' key={p._id} style={{ width: "18rem", height:"22rem"}}>
+                    filteredProducts.map((p)=>(<div className='card' key={p._id}  style={{ width: "18rem", height:"22rem"}}>
                         <button disabled={!p.inStock} className='plus-btn' onClick={()=>addToCart(p)} title={p.inStock ? "Add to cart" : "Out of stock"}>+</button>
-    <img  src={`${API_URL}${p.image}`} className='card-img-top' style={{ height: "180px", objectFit: "cover" }}/>    
+    <img  src={`http://localhost:5000${p.image}`} className='card-img-top' style={{ height: "180px", objectFit: "cover" }}/>
                         <div className='card-body d-flex flex-column'>
                             <h4 className='card-title text-truncate'>{p.name}</h4>
                             <h5 className='price'>₹ {p.price}</h5>
 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '10px 0' }}>
   {
     p.inStock?(<small
+    onClick={() => navigate(`/product_details/${p._id}`)}
     style={{
       border: 'none',
       borderRadius: '3px',
       backgroundColor: 'rgb(252, 107, 3)',
       color: 'white',
-      width: '150px',
+      width: '100px',
       height: '30px',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
       fontWeight: 'bold',
+      cursor:'pointer'
     }}
   >
-    Click + to add to Cart
+    view more
   </small>):(<small
     style={{
       border: 'none',
@@ -98,6 +104,8 @@ function Products({addToCart}){
                     </div>))
                 }
         </div>
+
+
         
         <Footer/>
       </div>

@@ -1,9 +1,12 @@
 .sidenav{
-    height:100vh;
+    height: calc(100% - 0px); /* full page height minus any top offset if needed */
+    min-height: 100vh; /* ensures at least full viewport */
     width: 220px;
     padding:0;
     display: flex;
     flex-direction: column;
+    position: sticky;
+    top: 0;
 }
 .back {
     width: 100%;

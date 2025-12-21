@@ -13,6 +13,7 @@ import {
     addToCart as addToCartService,
     removeFromCart as removeFromCartService 
 } from "../services/cartServices";
+import ProductDetails from '../pages/client/ProductDetails';
 
 function AppRoutes({cart,setCart,isLoggedIn,setIsUserLoggedIn,setIsAdminLoggedIn}){
     const userId = localStorage.getItem("userId");
@@ -52,6 +53,7 @@ function AppRoutes({cart,setCart,isLoggedIn,setIsUserLoggedIn,setIsAdminLoggedIn
                     <Route path="/" element={<Home/>}/>
                     <Route path="/login" element={<Login setIsUserLoggedIn={setIsUserLoggedIn} setCart={setCart}  setIsAdminLoggedIn={setIsAdminLoggedIn}/>}/>
                     <Route path="/products" element={<Products addToCart={addToCart}/>}/>
+                    <Route path="/product_details/:id" element={<ProductDetails addToCart={addToCart}/>}/>
                     <Route path="/myorders" element={<MyOrders/>}/>
                     <Route path="register" element={<Register/>}/>
                     <Route path="/cart" element={<Cart cart={cart} setCart={setCart} removeItemFromCart={removeItemFromCart}/>}/>
