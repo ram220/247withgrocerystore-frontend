@@ -61,6 +61,7 @@ function SearchedPage({ addToCart }) {
                   {/* Shop Now / Out of Stock */}
                   {item.inStock ? (
                     <small
+                    onClick={() => navigate(`/product_details/${p._id}`)}
                       style={{
                         border: "none",
                         borderRadius: "3px",
@@ -72,9 +73,10 @@ function SearchedPage({ addToCart }) {
                         justifyContent: "center",
                         alignItems: "center",
                         fontWeight: "bold",
+
                       }}
                     >
-                      Shop Now
+                      view more
                     </small>
                   ) : (
                     <small
