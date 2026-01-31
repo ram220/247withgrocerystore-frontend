@@ -1,5 +1,5 @@
 // ClientLayout.jsx
-import Chatbot from "../components/clientComponents/Chatbot";
+//import Chatbot from "../components/clientComponents/Chatbot";
 import Navbar from "../components/clientComponents/Navbar";
 import { Outlet } from "react-router-dom";
 

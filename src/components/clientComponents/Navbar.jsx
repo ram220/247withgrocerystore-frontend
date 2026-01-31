@@ -50,7 +50,7 @@ function Navbar({cart,setCart,isLoggedIn,setIsUserLoggedIn}){
 
     const interval = setInterval(checkToken, 1000); // check every second
     return () => clearInterval(interval);
-  }, []);
+  }, [handleLogout]);
 
 
     // for voice search
@@ -95,7 +95,7 @@ function Navbar({cart,setCart,isLoggedIn,setIsUserLoggedIn}){
     return(
         <>
             <nav className='navbar p-3'>
-                <div className='logo'><Link to="/"><img src='/grocerystoreicon.jpeg'/></Link></div>
+                <div className='logo'><Link to="/"><img src='/grocerystoreicon.jpeg' alt='logo'/></Link></div>
                 <div className='rightside'>
                     <ul className='nav-links'>
                         <li><Link to="/">Home</Link></li>
@@ -130,7 +130,7 @@ function Navbar({cart,setCart,isLoggedIn,setIsUserLoggedIn}){
 
                     <div className='cart'>
                         <Link to="/cart" className="cart-icon">
-                        <img src="/cart.png" className='cart-img'/>
+                        <img src="/cart.png" className='cart-img' alt='cart-icon'/>
                         {cart.length>0 && <span className='cart-count'>{cart.length}</span>}
                         </Link>
                     </div>

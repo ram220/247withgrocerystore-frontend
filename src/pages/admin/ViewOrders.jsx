@@ -56,7 +56,7 @@ function ViewOrders() {
 
   useEffect(() => {
     fetchOrders(currentPage);
-  }, [currentPage]);
+  }, [currentPage,fetchOrders]);
 
   return (
     <div className="container mt-1 p-1">

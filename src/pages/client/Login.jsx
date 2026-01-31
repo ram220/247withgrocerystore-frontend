@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link,useNavigate } from "react-router-dom";
-import Register from "./Register";
 import axios from 'axios'
 import { getCart } from "../../services/cartServices"; 
 function Login({setIsUserLoggedIn,setIsAdminLoggedIn,setCart}){

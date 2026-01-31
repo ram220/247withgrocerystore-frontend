@@ -20,7 +20,7 @@ function ProductDetails({ addToCart }) {
   useEffect(() => {
     fetchProduct();
     fetchRecommendations();
-  }, [id]);
+  }, [id,fetchProduct,fetchRecommendations]);
 
   const fetchProduct = async () => {
     const res = await axios.get(`${API_URL}/api/products/${id}`);

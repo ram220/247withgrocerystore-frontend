@@ -1,6 +1,6 @@
 import OrderSummary from "./OrderSummary";
-import { useEffect, useState } from "react";
-import { getCart, removeFromCart } from "../../services/cartServices";
+import { useEffect } from "react";
+import { removeFromCart } from "../../services/cartServices";
 import axios from 'axios'
 function Cart({ cart, setCart, removeItemFromCart }) {
         const userId = localStorage.getItem("userId");
@@ -19,7 +19,7 @@ function Cart({ cart, setCart, removeItemFromCart }) {
                 }
             };
             fetchCart();
-            }, [userId]);
+            }, [userId,setCart]);
 
     const setQuantity = (_id, quantity) => {
         const updateCart = cart.map((p) =>

@@ -7,7 +7,7 @@ function Footer(){
             <div className="container">
                 <div className="row">
                     <div className="col-md-6 p-3">
-                        <img width="90px" height="90px" src="/grocerystoreicon.jpeg"/>
+                        <img width="90px" height="90px" src="/grocerystoreicon.jpeg" alt='logo'/>
                         <p className="mt-3">Fresh, organic, and locally sourced – we bring the best fruits, veggies, dairy, and 
                             groceries straight to your doorstep.<br/> -Quality you can trust, every day!</p>
                             <p className="mt-3">© 2025 <strong><span style={{color:"rgb(255, 106, 0)"}}>Ram</span></strong>. Fresh & Organic. All rights reserved.</p>
