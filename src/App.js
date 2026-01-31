@@ -17,8 +17,6 @@ function App() {
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-
   const decodeToken = (token) => {
   try {
     const base64Url = token.split('.')[1];

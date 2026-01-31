@@ -50,7 +50,6 @@ function SearchedPage({ addToCart }) {
                 </button>
 
                 <img
-                  //src={`${API_URL}${item.image}`}
                   src={`${API_URL}${item.image}`}
                   alt={item.name}
                   className="card-img-top"

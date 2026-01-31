@@ -63,7 +63,7 @@ function Products({addToCart}){
                 {
                     filteredProducts.map((p)=>(<div className='card' key={p._id}  style={{ width: "18rem", height:"22rem"}}>
                         <button disabled={!p.inStock} className='plus-btn' onClick={()=>addToCart(p)} title={p.inStock ? "Add to cart" : "Out of stock"}>+</button>
-    <img  src={`${API_URL}${p.image}`} className='card-img-top' style={{ height: "180px", objectFit: "cover" }}/>
+    <img  src={`${API_URL}${p.image}`} className='card-img-top' style={{ height: "180px", objectFit: "cover" }} alt={p.name}/>
                         <div className='card-body d-flex flex-column'>
                             <h4 className='card-title text-truncate'>{p.name}</h4>
                             <h5 className='price'>₹ {p.price}</h5>

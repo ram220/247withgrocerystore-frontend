@@ -11,7 +11,7 @@ function ProductDetails({ addToCart }) {
   const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
   //const API_URL = "http://localhost:5000";
 
-  
+
   const [product, setProduct] = useState(null);
   const [recommended, setRecommended] = useState([]);
 
@@ -86,6 +86,7 @@ function ProductDetails({ addToCart }) {
                   src={`${API_URL}${r.image}`}
                   className="card-img-top"
                   style={{ height: "150px", objectFit: "cover" }}
+                  alt={r.name}
                 />
                 <div className="card-body text-center">
                   <h6 className="text-truncate">{r.name}</h6>
