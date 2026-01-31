@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import ClientRoutes from './routes/ClientRoutes';
 import { useState, useEffect } from 'react';
@@ -8,8 +7,7 @@ import AddProducts from './pages/admin/AddProducts';
 import ViewProducts from './pages/admin/ViewProducts';
 import MonthlyIncome from './pages/admin/MonthlyIncome';
 import ViewOrders from './pages/admin/ViewOrders';
-import axios from 'axios';
-import Chatbot from './components/clientComponents/Chatbot';
+//import Chatbot from './components/clientComponents/Chatbot';
 
 function App() {
   const [cart, setCart] = useState([]);
