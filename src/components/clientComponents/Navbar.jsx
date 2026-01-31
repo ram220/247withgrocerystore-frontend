@@ -101,31 +101,31 @@ function Navbar({cart,setCart,isLoggedIn,setIsUserLoggedIn}){
                         <li><Link to="/">Home</Link></li>
                         <li><Link to="/products">Products</Link></li>
                         <li><Link to="/myorders">My Orders</Link></li>
+                        <li><Link to="/offers">Offers</Link></li>
+
                         <li>{
                                 isLoggedIn?<button onClick={handleLogout} style={{border:"none",borderRadius:"3px", backgroundColor:"rgb(252, 107, 3)"}}>Logout</button>:(<Link to="/login">Login</Link>)
                             }</li>
                     </ul>
 
                     <form onSubmit={handelSearch} className='search-box'>
-  <input
-    type='text'
-    value={searchQuery}
-    onChange={(e) => setSearchQuery(e.target.value)}
-    placeholder='search...'
-  />
+                          <input
+                            type='text'
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            placeholder='search...'
+                          />
 
-
-
-  {SpeechRecognition && (
-    <button
-      type="button"
-      className="voice-btn"
-      onClick={() => recognition.start()}
-    >
-      {listening ? "🎙️" : "🎤"}
-    </button>
-  )}
-</form>
+                          {SpeechRecognition && (
+                            <button
+                              type="button"
+                              className="voice-btn"
+                              onClick={() => recognition.start()}
+                            >
+                              {listening ? "🎙️" : "🎤"}
+                            </button>
+                          )}
+                        </form>
 
 
                     <div className='cart'>

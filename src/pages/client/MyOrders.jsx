@@ -6,6 +6,7 @@ function Orders() {
   const userId = localStorage.getItem("userId");
 
   const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  //const API_URL = "http://localhost:5000";
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -16,7 +17,6 @@ function Orders() {
 
       try {
         const res = await axios.get(`${API_URL}/api/orders/${userId}`);
-        //const res = await axios.get(`http://localhost:5000/api/orders/${userId}`);
         const sortedOrders=(res.data.orders || []).sort(
           (a,b)=>new Date(b.createdAT) - new Date(a.createdAt)
         );
@@ -51,7 +51,6 @@ function Orders() {
                 <div key={item._id} className="col-md-6 d-flex align-items-center mb-2">
                   <img
                     src={`${API_URL}${item.productId.image}`}
-                    //src={`http://localhost:5000${item.productId.image}`}
                     alt={item.productId.name}
                     style={{ height: "60px", width: "60px", marginRight: "10px" }}
                   />

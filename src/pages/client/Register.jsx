@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 function Register() {
 
   const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  //const API_URL = "http://localhost:5000";
+
 
   const [formData, setFormData] = useState({
     name: "",
@@ -27,7 +29,6 @@ function Register() {
 
     try {
       const res=await axios.post(`${API_URL}/api/auth/register`, formData);
-      //const res=await axios.post("http://localhost:5000/api/auth/register", formData);
       alert("Registered successfully ✅");
       navigate('/login')
     } catch (err) {

@@ -13,13 +13,14 @@ function SearchedPage({ addToCart }) {
   const keyword = queryParams.get("keyword");
 
   const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+    //const API_URL = "http://localhost:5000";
+
 
   useEffect(() => {
     if (!keyword) return;
 
     axios
       .get(`${API_URL}/api/products/search?keyword=${keyword}`)
-      //.get(`http://localhost:5000/api/products/search?keyword=${keyword}`)
       .then((res) => {
         console.log("Search Results 👉", res.data);
         setSearchedItems(res.data.products || []);
@@ -49,8 +50,8 @@ function SearchedPage({ addToCart }) {
                 </button>
 
                 <img
+                  //src={`${API_URL}${item.image}`}
                   src={`${API_URL}${item.image}`}
-                  //src={`http://localhost:5000${item.image}`}
                   alt={item.name}
                   className="card-img-top"
                   style={{ height: "180px", objectFit: "cover" }}

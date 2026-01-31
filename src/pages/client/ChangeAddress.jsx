@@ -8,12 +8,11 @@ function ChangeAddress() {
   const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
 
-  const LOCAL_URL = "http://localhost:5000";
+  //const API_URL = "http://localhost:5000";
   const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
 
   // Fetch current details
   useEffect(() => {
-    //axios.get(`${LOCAL_URL}/api/auth/user/${userId}`)
     axios.get(`${API_URL}/api/auth/user/${userId}`)
       .then(res => {
         setAddress(res.data.address || "");
@@ -25,7 +24,6 @@ function ChangeAddress() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      //const res = await axios.put(`${LOCAL_URL}/api/auth/user/${userId}`, {
       const res = await axios.put(`${API_URL}/api/auth/user/${userId}`, {
         address,
         mobile

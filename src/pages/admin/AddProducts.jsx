@@ -7,7 +7,9 @@ function AddProducts() {
   const [productPrice, setProductPrice] = useState('');
   const [productCategory, setProductCategory] = useState('');
   const [productKeywords, setProductKeywords] = useState('');
+  const [expiryDate, setExpiryDate] = useState("");
   const [productDescription,setProductDescription]=useState('');
+
 
   const API_URL = "https://two47withgrocerystoreram-backend.onrender.com"; 
 
@@ -31,6 +33,8 @@ function AddProducts() {
     formData.append("price", productPrice);
     // send keywords as a simple comma-separated string (backend splits it)
     formData.append("keywords", productKeywords);
+    formData.append("expiryDate", expiryDate);
+
     formData.append("description",productDescription);
 
     // append all selected files under the field name "images"
@@ -154,6 +158,17 @@ function AddProducts() {
               style={{ border: "1px solid", borderRadius: "3px", width: "230px" }}
             />
           </div>
+
+          <div className="mt-2">
+            <h5>Expiry Date</h5>
+            <input
+              type="date"
+              value={expiryDate}
+              onChange={(e) => setExpiryDate(e.target.value)}
+              style={{ border: "1px solid", borderRadius: "3px", width: "230px" }}
+            />
+          </div>
+
 
           <div className="mt-2">
             <h5>Product Description</h5>
