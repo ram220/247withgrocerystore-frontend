@@ -50,7 +50,7 @@ function Navbar({cart,setCart,isLoggedIn,setIsUserLoggedIn}){
 
     const interval = setInterval(checkToken, 1000); // check every second
     return () => clearInterval(interval);
-  }, [handleLogout]);
+  }, []);
 
 
     // for voice search
