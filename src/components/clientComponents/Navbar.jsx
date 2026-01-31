@@ -2,19 +2,21 @@ import {Link,useNavigate} from 'react-router-dom';
 import  {useState,useEffect} from 'react';
 import { jwtDecode } from "jwt-decode";
 import './Navbar.css'
+import { useCallback } from 'react';
 function Navbar({cart,setCart,isLoggedIn,setIsUserLoggedIn}){
 
     const [searchQuery,setSearchQuery]=useState("");
     const navigate=useNavigate();
 
-    const handleLogout = () => {
-      localStorage.removeItem("userToken");
-      localStorage.removeItem("userId");
-      localStorage.removeItem("role");  
-      setCart([]);
-      setIsUserLoggedIn(false)
-      navigate("/"); // redirect home
-    };
+    // wrap the function
+      const handleLogout = useCallback(() => {
+        localStorage.removeItem("userToken");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("role");  
+        setCart([]);
+        setIsUserLoggedIn(false)
+        navigate("/"); // redirect home
+      }, [navigate, setCart, setIsUserLoggedIn]);
 
     const handelSearch = (e) => {
       e.preventDefault();
@@ -32,25 +34,22 @@ function Navbar({cart,setCart,isLoggedIn,setIsUserLoggedIn}){
 
 
   useEffect(() => {
-    const checkToken = () => {
-      const token = localStorage.getItem("userToken");
-      if (!token) return;
+  const checkToken = () => {
+    const token = localStorage.getItem("userToken");
+    if (!token) return;
 
-      try {
-        const decoded = jwtDecode(token);
-        const currentTime = Date.now() / 1000; // in seconds
-        if (decoded.exp < currentTime) {
-          handleLogout(); // token expired → log out
-          alert("Session expired! Please login again.");
-        }
-      } catch (err) {
-        handleLogout(); // invalid token → log out
-      }
-    };
+    try {
+      const decoded = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+      if (decoded.exp < currentTime) handleLogout();
+    } catch (err) {
+      handleLogout();
+    }
+  };
 
-    const interval = setInterval(checkToken, 1000); // check every second
-    return () => clearInterval(interval);
-  }, []);
+  const interval = setInterval(checkToken, 1000);
+  return () => clearInterval(interval);
+}, [handleLogout]); // ✅ now included
 
 
     // for voice search

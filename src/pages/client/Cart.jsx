@@ -19,7 +19,7 @@ function Cart({ cart, setCart, removeItemFromCart }) {
                 }
             };
             fetchCart();
-            }, [userId,setCart]);
+            }, [userId]);
 
     const setQuantity = (_id, quantity) => {
         const updateCart = cart.map((p) =>

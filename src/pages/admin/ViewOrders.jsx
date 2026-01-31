@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useCallback } from 'react';
 
 function ViewOrders() {
   const [orders, setOrders] = useState([]);
@@ -12,29 +13,25 @@ function ViewOrders() {
 
 
   // Fetch orders with pagination
-  const fetchOrders = async (page = 1) => {
-    try {
-      if (!token) {
-        setOrders([]);
-        return;
-      }
+  const fetchOrders = useCallback(async (page = 1) => {
+  try {
+    if (!token) {
+      setOrders([]);
+      return;
+    }
 
-      const res = await axios.get(`${API_URL}/api/admin/all-orders?page=${page}&limit=${limit}`, {
-      //const res = await axios.get(`http://localhost:5000/api/admin/all-orders?page=${page}&limit=${limit}`, {
+    const res = await axios.get(`${API_URL}/api/admin/all-orders?page=${page}&limit=${limit}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
 
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      setOrders(res.data.orders);
-      setCurrentPage(res.data.currentPage);
-      setTotalPages(res.data.totalPages);
+    setOrders(res.data.orders);
+    setCurrentPage(res.data.currentPage);
+    setTotalPages(res.data.totalPages);
     } catch (err) {
       console.error("Error fetching orders:", err);
       setOrders([]);
     }
-  };
+  }, [token, API_URL, limit]);
 
   // Update order status
   const updateStatus = async (orderId, status) => {
@@ -56,7 +53,7 @@ function ViewOrders() {
 
   useEffect(() => {
     fetchOrders(currentPage);
-  }, [currentPage]);
+  }, [fetchOrders, currentPage]);
 
   return (
     <div className="container mt-1 p-1">

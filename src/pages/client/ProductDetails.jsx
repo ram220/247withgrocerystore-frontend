@@ -17,22 +17,23 @@ function ProductDetails({ addToCart }) {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchProduct();
-    fetchRecommendations();
-  }, [id]);
+    useEffect(() => {
+      const fetchProduct = async () => {
+        const res = await axios.get(`${API_URL}/api/products/${id}`);
+        setProduct(res.data);
+      };
 
-  const fetchProduct = async () => {
-    const res = await axios.get(`${API_URL}/api/products/${id}`);
-    setProduct(res.data);
-  };
+      const fetchRecommendations = async () => {
+        const res = await axios.get(`${API_URL}/api/products/recommend/${id}`);
+        setRecommended(res.data);
+      };
 
-  const fetchRecommendations = async () => {
-    const res = await axios.get(
-      `${API_URL}/api/products/recommend/${id}`
-    );
-    setRecommended(res.data);
-  };
+      fetchProduct();
+      fetchRecommendations();
+    }, [id, API_URL]); // ✅ now dependencies are correct
+
+
+  
 
   if (!product) return <h3 className="text-center mt-5">Loading...</h3>;
 
