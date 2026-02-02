@@ -6,8 +6,8 @@ function Offers() {
   const [offers, setOffers] = useState([]);
   const navigate = useNavigate();
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-  //const API_URL = "http://localhost:5000";
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  const API_URL = "http://localhost:5000";
 
 
   useEffect(() => {
@@ -24,7 +24,7 @@ function Offers() {
         </strong>
       </h2>
 
-      <div className="d-flex flex-wrap justify-content-center gap-5 mt-4">
+      <div className="products-grid mt-4">
         {offers.map(p => {
           const discountedPrice =
             p.offerType === "DISCOUNT"
@@ -32,7 +32,7 @@ function Offers() {
               : p.price;
 
           return (
-            <div className="card" key={p._id} style={{ width: "18rem", height: "22rem" }}>
+            <div className="product-card" key={p._id} style={{ width: "18rem", height: "22rem" }}>
               
               {/* OFFER BADGE */}
               <span
@@ -54,7 +54,7 @@ function Offers() {
 
               <img
                 src={`${API_URL}${p.image}`}
-                className="card-img-top"
+                className="product-img"
                 style={{ height: "180px", objectFit: "cover" }}
                 alt={p.name}
               />

@@ -1,0 +1,85 @@
+/* CART ROW */
+.cart-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+  flex-wrap: nowrap; /* keep all in one row */
+}
+
+/* PRODUCT INFO */
+.cart-product-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 2 1 50%; /* takes half the row */
+}
+
+.cart-product-info img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.cart-product-info input {
+  width: 35px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+
+/* SUBTOTAL */
+.cart-subtotal {
+  flex: 1 1 25%;
+  text-align: center;
+}
+
+/* ACTION */
+.cart-action {
+  flex: 1 1 15%;
+  text-align: center;
+}
+
+/* REMOVE BUTTON */
+.cart-remove-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* HEADERS */
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  font-weight: bold;
+  border-bottom: 2px solid #fc6b03;
+  flex-wrap: nowrap; /* keep in one row */
+}
+
+.cart-header .product-col {
+  flex: 2 1 50%;
+  text-align: left;
+}
+
+.cart-header .subtotal-col,
+.cart-header .action-col {
+  flex: 1 1 25%;
+  text-align: center;
+}
+
+/* RESPONSIVE FOR MOBILE */
+@media (max-width: 768px) {
+  .cart-container {
+    overflow-x: auto; /* allow horizontal scroll */
+  }
+
+  .cart-row, .cart-header {
+    min-width: 500px; /* ensures table structure is preserved */
+    flex-wrap: nowrap;
+  }
+}

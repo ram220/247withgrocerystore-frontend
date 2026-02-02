@@ -5,6 +5,8 @@ import './Navbar.css'
 import { useCallback } from 'react';
 function Navbar({cart,setCart,isLoggedIn,setIsUserLoggedIn}){
 
+    const [menuOpen, setMenuOpen] = useState(false);
+
     const [searchQuery,setSearchQuery]=useState("");
     const navigate=useNavigate();
 
@@ -94,9 +96,16 @@ function Navbar({cart,setCart,isLoggedIn,setIsUserLoggedIn}){
     return(
         <>
             <nav className='navbar p-3'>
+              <button
+  className="menu-btn"
+  onClick={() => setMenuOpen(!menuOpen)}
+>
+  ☰
+</button>
+
                 <div className='logo'><Link to="/"><img src='/grocerystoreicon.jpeg' alt='logo'/></Link></div>
                 <div className='rightside'>
-                    <ul className='nav-links'>
+                    <ul className={`nav-links ${menuOpen ? "active" : ""}`}>
                         <li><Link to="/">Home</Link></li>
                         <li><Link to="/products">Products</Link></li>
                         <li><Link to="/myorders">My Orders</Link></li>

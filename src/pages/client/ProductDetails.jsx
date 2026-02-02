@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Footer from "../../components/clientComponents/Footer";
+import './ProductDetails.css'
 import { useParams, useNavigate } from "react-router-dom";
 
 function ProductDetails({ addToCart }) {
@@ -8,8 +9,8 @@ function ProductDetails({ addToCart }) {
   console.log("Product ID from URL:", id, id.length);
 
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-  //const API_URL = "http://localhost:5000";
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  const API_URL = "http://localhost:5000";
 
 
   const [product, setProduct] = useState(null);
@@ -75,7 +76,7 @@ function ProductDetails({ addToCart }) {
       {recommended.length > 0 && (
         <>
           <h3 className="mt-5">Recommended Products</h3>
-          <div className="d-flex flex-wrap gap-4 mt-3">
+          <div className="recommended-grid mt-3">
             {recommended.map((r) => (
               <div
                 key={r._id}
@@ -83,12 +84,13 @@ function ProductDetails({ addToCart }) {
                 style={{ width: "16rem", cursor: "pointer" }}
                 onClick={() => navigate(`/product_details/${r._id}`)}
               >
-                <img
-                  src={`${API_URL}${r.image}`}
-                  className="card-img-top"
-                  style={{ height: "150px", objectFit: "cover" }}
-                  alt={r.name}
-                />
+                <div className="recommended-img-wrapper">
+                    <img
+                        src={`${API_URL}${r.image}`}
+                        alt={r.name}
+                    />
+                  </div>
+
                 <div className="card-body text-center">
                   <h6 className="text-truncate">{r.name}</h6>
                   <p>₹ {r.price}</p>

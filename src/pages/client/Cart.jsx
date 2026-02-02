@@ -2,11 +2,13 @@ import OrderSummary from "./OrderSummary";
 import { useEffect } from "react";
 import { removeFromCart } from "../../services/cartServices";
 import axios from 'axios'
+
+import './Cart.css'
 function Cart({ cart, setCart, removeItemFromCart }) {
         const userId = localStorage.getItem("userId");
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-  //const API_URL = "http://localhost:5000";
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  const API_URL = "http://localhost:5000";
 
         useEffect(() => {
                 const fetchCart = async () => {
@@ -43,11 +45,11 @@ function Cart({ cart, setCart, removeItemFromCart }) {
 
             <div className="row">
                 {/* LEFT SIDE (Cart Items) */}
-                <div className="col-md-8">
-                    <div className="row border-bottom mt-3">
-                        <div className="col-md-6"><h5>Product</h5></div>
-                        <div className="col-md-3"><h5>SubTotal</h5></div>
-                        <div className="col-md-3"><h5>Action</h5></div>
+                <div className="cart-container col-md-8">
+                    <div className="cart-header mt-3">
+                        <div className="product-col"><h5>Product</h5></div>
+                        <div className="subtotal-col"><h5>SubTotal</h5></div>
+                        <div className="action-col"><h5>Action</h5></div>
                     </div>
 
                     {cart.length === 0 ? (
@@ -57,12 +59,11 @@ function Cart({ cart, setCart, removeItemFromCart }) {
                         if (!p.productId) return null; // skip invalid items
 
                         return (
-                            <div key={p._id} className="row align-items-center py-3 border-bottom">
-                            <div className="col-md-6 d-flex align-items-center">
+                            <div key={p._id} className="cart-row">
+                            <div className="cart-product-info">
                                 <img
                                 src={`${API_URL}${p.productId.image}`}
                                 alt={p.productId.name}
-                                style={{ height: "60px", width: "60px", marginRight: "10px" }}
                                 />
                                 <div>
                                 <h6 className="mb-1">{p.productId.name}</h6>
@@ -72,16 +73,15 @@ function Cart({ cart, setCart, removeItemFromCart }) {
                                     min={1}
                                     value={p.quantity}
                                     onChange={(e) => setQuantity(p._id, e.target.value)}
-                                    style={{ width: "40px", textAlign: "center" }}
                                 />
                                 </div>
                             </div>
-                            <div className="col-md-3">
+                            <div className="cart-subtotal">
                                 ₹{p.productId.price * p.quantity}
                             </div>
-                            <div className="col-md-3">
+                            <div className="cart-action">
                                 <button
-                                style={{ border: "none" }}
+                                className="cart-remove-btn"
                                 onClick={() => handleRemove(p.productId._id)}
                                 >
                                 ❌

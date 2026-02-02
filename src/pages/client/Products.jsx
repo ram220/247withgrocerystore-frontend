@@ -34,8 +34,8 @@ function Products({addToCart}){
         const [products,setProducts]=useState([]);
 
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-    //const API_URL = "http://localhost:5000";
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+    const API_URL = "http://localhost:5000";
 
 
    useEffect(() => {
@@ -50,7 +50,7 @@ function Products({addToCart}){
     return(
       <div>
         <h2 className="text-center mt-3"> <strong><span style={{color:"rgb(255, 106, 0)"}}>Our</span> Products</strong></h2>
-        <div className="d-flex gap-3 justify-content-center mt-3">
+        <div className="products-filter mt-3">
             <button className="products-btn" onClick={()=>{setSelectedProducts("all")}}>All</button>
             <button className="products-btn" onClick={()=>{setSelectedProducts('Oils')}}>Oils</button>
             <button className="products-btn" onClick={()=>{setSelectedProducts("vegetables")}}>Vegetables</button>
@@ -59,14 +59,14 @@ function Products({addToCart}){
             <button className="products-btn" onClick={()=>{setSelectedProducts("Spices")}}>Spice Blend</button>
 
         </div>
-        <div className='d-flex flex-wrap justify-content-center gap-5 mt-4'>
+        <div className='products-grid mt-4'>
                 {
-                    filteredProducts.map((p)=>(<div className='card' key={p._id}  style={{ width: "18rem", height:"22rem"}}>
+                    filteredProducts.map((p)=>(<div className='product-card' key={p._id}>
                         <button disabled={!p.inStock} className='plus-btn' onClick={()=>addToCart(p)} title={p.inStock ? "Add to cart" : "Out of stock"}>+</button>
-    <img  src={`${API_URL}${p.image}`} className='card-img-top' style={{ height: "180px", objectFit: "cover" }} alt={p.name}/>
+    <img  src={`${API_URL}${p.image}`} className='product-img' alt={p.name}/>
                         <div className='card-body d-flex flex-column'>
-                            <h4 className='card-title text-truncate'>{p.name}</h4>
-                            <h5 className='price'>₹ {p.price}</h5>
+                            <h4 className='text-center'>{p.name}</h4>
+                            <h5 className='text-center'>₹ {p.price}</h5>
 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '10px 0' }}>
   {
     p.inStock?(<small

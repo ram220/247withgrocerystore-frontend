@@ -29,28 +29,28 @@ function Home(){
 
             <div className="products-category">
                 <div className="card">
-                    <img src="/fruits-and-veggies.png" width="270px" height="130px" alt="Fruits & Veggies"></img>
+                    <img className="category-img" src="/fruits-and-veggies.png" alt="Fruits & Veggies"></img>
                     <h4 className='mt-3'>Fruits & Veggies</h4>
                     <p>Fruits and vegetables provide vitamins, minerals, and fiber.</p>
                 </div>
                 <div className="card">
-                    <img src="/dairy-and-eggs.png" width="270px" height="130px" alt="Dairy & Eggs" />
+                    <img className="category-img" src="/dairy-and-eggs.png"  alt="Dairy & Eggs" />
                     <h4 className='mt-3'>Dairy & Eggs</h4>
                     <p>Dairy comes from milk, while eggs are not dairy.</p>
                 </div>
                 <div className="card">
-                    <img src="/dals.jpeg" width="270px" height="130px" alt='Dals'/>
+                    <img className="category-img" src="/dals.jpeg" alt='Dals'/>
                     <h4 className='mt-3'>Dals</h4>
                     <p>Dals and legumes provide rich protein and support healthy growth.</p>
                 </div>
                 <div className="card">
-                    <img src="/rice and oils banner.jpg" width="270px" height="130px" alt='Dals'/>
+                    <img className="category-img" src="/rice and oils banner.jpg" alt='Dals'/>
                     <h4 className='mt-3'>Rice & Oils</h4>
                     <p>Rice provides carbohydrates for energy, while oils offer healthy fats.</p>
                     
                 </div>
                 <div className="card">
-                    <img src="/masalas-powders.jpg" width="270px" height="130px" alt='Dals'/>
+                    <img className="category-img" src="/masalas-powders.jpg" alt='Dals'/>
                     <h4 className='mt-3'>Spice Blend</h4>
                     <p>Spices and masalas enhance the taste, enrich the aroma, and aid in better digestion.</p>
                     
