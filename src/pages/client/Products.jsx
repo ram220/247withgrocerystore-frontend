@@ -34,8 +34,8 @@ function Products({addToCart}){
         const [products,setProducts]=useState([]);
 
 
-  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-    const API_URL = "http://localhost:5000";
+  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  //  const API_URL = "http://localhost:5000";
 
 
    useEffect(() => {
