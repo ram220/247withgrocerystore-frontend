@@ -9,8 +9,8 @@ function ProductDetails({ addToCart }) {
   console.log("Product ID from URL:", id, id.length);
 
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-  //const API_URL = "http://localhost:5000";
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  const API_URL = "http://localhost:5000";
 
 
   const [product, setProduct] = useState(null);
@@ -44,7 +44,7 @@ function ProductDetails({ addToCart }) {
       <div className="row">
         <div className="col-md-5">
           <img
-            src={`${API_URL}${product.image}`}
+            src={product.image}
             className="img-fluid"
             alt={product.name}
           />

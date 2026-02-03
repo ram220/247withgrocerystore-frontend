@@ -12,8 +12,8 @@ function SearchedPage({ addToCart }) {
   const queryParams = new URLSearchParams(location.search);
   const keyword = queryParams.get("keyword");
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-  //  const API_URL = "http://localhost:5000";
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+    const API_URL = "http://localhost:5000";
 
 
   useEffect(() => {
@@ -50,10 +50,10 @@ function SearchedPage({ addToCart }) {
                 </button>
 
                 <img
-                  src={`${API_URL}${item.image}`}
+                  src={item.image}
                   alt={item.name}
                   className="card-img-top"
-                  style={{ height: "180px", objectFit: "cover" }}
+                  style={{ height: "180px", objectFit:"fill" }}
                 />
 
                 <div className="card-body d-flex flex-column">

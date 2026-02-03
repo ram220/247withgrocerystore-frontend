@@ -7,8 +7,8 @@ import './Cart.css'
 function Cart({ cart, setCart, removeItemFromCart }) {
         const userId = localStorage.getItem("userId");
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-  //const API_URL = "http://localhost:5000";
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  const API_URL = "http://localhost:5000";
 
         useEffect(() => {
                 const fetchCart = async () => {
@@ -62,7 +62,7 @@ function Cart({ cart, setCart, removeItemFromCart }) {
                             <div key={p._id} className="cart-row">
                             <div className="cart-product-info">
                                 <img
-                                src={`${API_URL}${p.productId.image}`}
+                                src={p.productId.image}
                                 alt={p.productId.name}
                                 />
                                 <div>

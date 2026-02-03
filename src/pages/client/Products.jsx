@@ -34,8 +34,8 @@ function Products({addToCart}){
         const [products,setProducts]=useState([]);
 
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-  //  const API_URL = "http://localhost:5000";
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+    const API_URL = "http://localhost:5000";
 
 
    useEffect(() => {
@@ -63,7 +63,7 @@ function Products({addToCart}){
                 {
                     filteredProducts.map((p)=>(<div className='product-card' key={p._id}>
                         <button disabled={!p.inStock} className='plus-btn' onClick={()=>addToCart(p)} title={p.inStock ? "Add to cart" : "Out of stock"}>+</button>
-    <img  src={`${API_URL}${p.image}`} className='product-img' alt={p.name}/>
+    <img  src={`${p.image}`} className='product-img' alt={p.name}/>
                         <div className='card-body d-flex flex-column'>
                             <h4 className='text-center'>{p.name}</h4>
                             <h5 className='text-center'>₹ {p.price}</h5>

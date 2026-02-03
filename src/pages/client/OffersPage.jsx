@@ -6,8 +6,8 @@ function Offers() {
   const [offers, setOffers] = useState([]);
   const navigate = useNavigate();
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-  //const API_URL = "http://localhost:5000";
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  const API_URL = "http://localhost:5000";
 
 
   useEffect(() => {
@@ -53,7 +53,7 @@ function Offers() {
               </span>
 
               <img
-                src={`${API_URL}${p.image}`}
+                src={p.image}
                 className="product-img"
                 style={{ height: "180px", objectFit: "cover" }}
                 alt={p.name}

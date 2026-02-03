@@ -5,8 +5,8 @@ function Orders() {
   const [orders, setOrders] = useState([]);
   const userId = localStorage.getItem("userId");
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-  //const API_URL = "http://localhost:5000";
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  const API_URL = "http://localhost:5000";
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -50,7 +50,7 @@ function Orders() {
               {(order.items || []).map((item) => (
                 <div key={item._id} className="col-md-6 d-flex align-items-center mb-2">
                   <img
-                    src={`${API_URL}${item.productId.image}`}
+                    src={item.productId.image}
                     alt={item.productId.name}
                     style={{ height: "60px", width: "60px", marginRight: "10px" }}
                   />
