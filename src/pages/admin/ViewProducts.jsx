@@ -7,13 +7,13 @@ function ViewProducts() {
   const [totalPages, setTotalPages] = useState(1);
   const limit = 6; // number of products per page
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  const API_URL = "http://localhost:5000";
   // Fetch products from backend
   const fetchProducts = async (pageNum = 1) => {
     try {
       const res = await axios.get(
         `${API_URL}/api/products?page=${pageNum}&limit=${limit}`
-        //`http://localhost:5000/api/products?page=${pageNum}&limit=${limit}`
       );
       const productsWithOriginal = res.data.products.map(p => ({ ...p, originalPrice: p.price }));
 
@@ -34,7 +34,6 @@ const handlePriceChange = async (id, newPrice) => {
     const token = localStorage.getItem("adminToken");
     const res = await axios.put(
       `${API_URL}/api/admin/products/${id}/price`,
-      //`http://localhost:5000/api/admin/products/${id}/price`,
       { price: Number(newPrice) },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -59,7 +58,6 @@ const toggleStock = async (id, currentStatus) => {
     const token = localStorage.getItem("adminToken");
     const res = await axios.put(
       `${API_URL}/api/products/${id}`,
-      //`http://localhost:5000/api/products/${id}`,
       { inStock: !currentStatus },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -116,7 +114,6 @@ const toggleStock = async (id, currentStatus) => {
             >
               <img
                 src={`${API_URL}${p.image}`}
-                //src={`http://localhost:5000${p.image}`}
                 alt={p.name}
                 style={{
                   width: "50px",

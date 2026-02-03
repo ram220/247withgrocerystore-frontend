@@ -14,13 +14,13 @@ function ViewOrders() {
   const [data, setData] = useState([]);
   const [totalIncome, setTotalIncome] = useState(0);
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  const API_URL = "http://localhost:5000";
 
   useEffect(() => {
   const fetchIncome = async () => {
     try {
       const res = await axios.get(`${API_URL}/api/admin/monthly-income`);
-      //const res = await axios.get("http://localhost:5000/api/admin/monthly-income");
       const chartData = (res.data.monthlyIncome || []).map(item => ({
         month: `${item._id.month}-${item._id.year}`,
         totalIncome: item.totalIncome,

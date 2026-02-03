@@ -10,8 +10,12 @@ function AddProducts() {
   const [expiryDate, setExpiryDate] = useState("");
   const [productDescription,setProductDescription]=useState('');
 
+  const [loading, setLoading] = useState(false);
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com"; 
+
+
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com"; 
+  const API_URL = "http://localhost:5000";
 
   const handleFileChange = (e, index) => {
     const file = e.target.files[0];
@@ -35,7 +39,7 @@ function AddProducts() {
     formData.append("keywords", productKeywords);
     formData.append("expiryDate", expiryDate);
 
-    formData.append("description",productDescription);
+    formData.append("description",productDescription.trim() || "No description yet");
 
     // append all selected files under the field name "images"
     if (image?.file) {
@@ -43,16 +47,18 @@ function AddProducts() {
     }
     const token = localStorage.getItem('adminToken');
 
+    console.log("token in add product page: ",token);
+
+    setLoading(true);
+
     try {
       // IMPORTANT: do NOT set Content-Type manually; let the browser add the boundary
       await axios.post(
         `${API_URL}/api/products`,
-        //"http://localhost:5000/api/products",
         formData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
-
-      alert('Product Added Successfully');
+      alert("Product Added Successfully");
 
       // optional: clear form
       setProductName('');
@@ -64,6 +70,9 @@ function AddProducts() {
     } catch (err) {
       console.log(err);
       alert(err.response?.data?.message || "❌ Error While Adding Product");
+    }
+    finally{
+      setLoading(false)
     }
   };
 
@@ -184,16 +193,19 @@ function AddProducts() {
           <button
             className="mt-3"
             type="submit"
+            disabled={loading}
             style={{
               padding: "8px 16px",
               marginTop: "10px",
               backgroundColor: "rgb(255, 107, 2)",
               border: "none",
               borderRadius: "3px",
-              color: "white"
+              color: "white",
+              opacity: loading ? 0.6:1,
+              cursor: loading?"not-allowed":"pointer",
             }}
           >
-            Add
+            {loading?"Adding..":"Add"}
           </button>
         </form>
       </div>

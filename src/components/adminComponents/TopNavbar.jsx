@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 function TopNavbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -16,7 +16,6 @@ function TopNavbar() {
 
       try {
         const decoded = jwtDecode(token);
-        // check if token expired
         if (decoded.exp * 1000 < Date.now()) {
           localStorage.clear();
           setIsLoggedIn(false);
@@ -24,7 +23,7 @@ function TopNavbar() {
         } else {
           setIsLoggedIn(true);
         }
-      } catch (err) {
+      } catch {
         localStorage.clear();
         setIsLoggedIn(false);
         navigate("/login");
@@ -32,60 +31,74 @@ function TopNavbar() {
     };
 
     checkToken();
-
-    // optional: check every second
-    const interval = setInterval(checkToken, 1000);
-
-    return () => clearInterval(interval);
   }, [navigate]);
 
   const handleLogout = () => {
     localStorage.clear();
     setIsLoggedIn(false);
-    alert("session expired, please login again!")
     navigate("/login");
   };
 
   return (
-    <div>
-      <nav className="navbar p-3" style={{ backgroundColor: "whitesmoke" }}>
-        <div className="logo">
-          <img src="/grocerystoreicon.jpeg" alt="logo" />
-        </div>
-        <div className="rightlinks me-5">
-          <ul className="nav-links">
-            {isLoggedIn ? (
-              <>
-                <li>
-                  <strong>
-                    <h6>
-                      <span style={{ color: "rgb(255, 107, 2)" }}>Hi! </span>
-                      Admin
-                    </h6>
-                  </strong>
-                </li>
-                <li>
-                  <button
-                    onClick={handleLogout}
-                    style={{ background: "none", border: "none", cursor: "pointer", color: "rgb(255, 107, 2)" }}
-                  >
-                    Logout
-                  </button>
-                </li>
-              </>
-            ) : (
-              <li>
-                <Link to="/login">
-                  <h6>
-                    <span style={{ color: "rgb(255, 107, 2)" }}>Login</span>
-                  </h6>
-                </Link>
+    <nav className="navbar navbar-expand-lg navbar-light shadow-sm px-3 sticky-top"
+         style={{ backgroundColor: "whitesmoke" }}>
+
+      {/* LOGO */}
+      <Link className="navbar-brand d-flex align-items-center" to="/">
+        <img
+          src="/grocerystoreicon.jpeg"
+          alt="logo"
+          style={{ height: "40px", marginRight: "10px" }}
+        />
+        <strong style={{ color: "rgb(255, 107, 2)" }}>Admin Panel</strong>
+      </Link>
+
+      {/* HAMBURGER */}
+      <button
+        className="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#adminNavbar"
+      >
+        <span className="navbar-toggler-icon"></span>
+      </button>
+
+      {/* RIGHT CONTENT */}
+      <div className="collapse navbar-collapse justify-content-end" id="adminNavbar">
+        <ul className="navbar-nav align-items-center gap-3">
+
+          {isLoggedIn ? (
+            <>
+              <li className="nav-item">
+                <span className="fw-semibold">
+                  Hi, <span style={{ color: "rgb(255, 107, 2)" }}>Admin</span>
+                </span>
               </li>
-            )}
-          </ul>
-        </div>
-      </nav>
-    </div>
+
+              <li className="nav-item">
+                <button
+                  onClick={handleLogout}
+                  className="btn btn-outline-danger btn-sm"
+                  style={{
+                    borderColor: "rgb(255, 107, 2)",
+                    color: "rgb(255, 107, 2)"
+                  }}
+                >
+                  Logout
+                </button>
+              </li>
+            </>
+          ) : (
+            <li className="nav-item">
+              <Link to="/login" className="btn btn-outline-primary btn-sm">
+                Login
+              </Link>
+            </li>
+          )}
+
+        </ul>
+      </div>
+    </nav>
   );
 }
 

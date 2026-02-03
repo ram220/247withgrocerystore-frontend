@@ -13,8 +13,8 @@ function Login({setIsUserLoggedIn,setIsAdminLoggedIn,setCart}){
     
     const regex=/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-  //const API_URL = "http://localhost:5000";
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  const API_URL = "http://localhost:5000";
 
     const handleSubmit=async ()=>{
         const newErrors={email:"",password:""};
@@ -83,24 +83,31 @@ function Login({setIsUserLoggedIn,setIsAdminLoggedIn,setCart}){
     return(
         <>
         <form onSubmit={(e)=>{e.preventDefault();handleSubmit()}}>
-            <div className="border w-25 p-3 m-auto mt-5">
-                <h2 className="text-center" style={{color:"rgb(252, 107, 3)"}}>Login Here</h2>
-                <div className='mt-3'>
-                    <label>Email</label><br/>
-                    <input className='form-control' type="text" value={email} onChange={(e)=>{setEmail(e.target.value)}}/>
-                    {errors.email&&<span className="text-danger">{errors.email}</span>}
-                </div>
+            <div className="container mt-5">
+                <div className="row justify-content-center">
+                    <div className="col-12 col-sm-10 col-md-6 col-lg-4">
+                        <div className="border p-3">
+                            <h2 className="text-center" style={{color:"rgb(252, 107, 3)"}}>Login Here</h2>
+                            <div className='mt-3'>
+                                <label>Email</label><br/>
+                                <input className='form-control' type="text" value={email} onChange={(e)=>{setEmail(e.target.value)}}/>
+                                {errors.email&&<span className="text-danger">{errors.email}</span>}
+                            </div>
 
-                <div className='mt-3'>
-                    <label>Password</label>
-                    <input className='form-control' type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}></input>
-                    {errors.password&&<span className="text-danger">{errors.password}</span>}
-                </div>
+                            <div className='mt-3'>
+                                <label>Password</label>
+                                <input className='form-control' type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}></input>
+                                {errors.password&&<span className="text-danger">{errors.password}</span>}
+                            </div>
 
-                <div className='mt-3'>
-                    <button type='submit' className="btn btn-danger w-100" style={{background:"rgb(252, 107, 3)"}}>Login</button>
+                            <div className='mt-3'>
+                                <button type='submit' className="btn btn-danger w-100" style={{background:"rgb(252, 107, 3)"}}>Login</button>
+                            </div>
+                            <p className="p-reg">Don't have an account? <Link to="/register">Register</Link></p>
+                        </div>
+                    </div>
                 </div>
-                <p className="p-reg">Don't have an account? <Link to="/register">Register</Link></p>
+            
             </div>
         </form>
         </>

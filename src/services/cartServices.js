@@ -1,7 +1,7 @@
 import axios from "axios";
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-  //  const API_URL = "http://localhost:5000";
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+    const API_URL = "http://localhost:5000";
 
 const API = `${API_URL}/api/cart`;
 
