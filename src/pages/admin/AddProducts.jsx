@@ -144,10 +144,10 @@ function AddProducts() {
             >
               <option value="">Select Category</option>
               <option>Oils</option>
-              <option>vegetable</option>
+              <option>vegetables</option>
               <option>dairy</option>
               <option>Rice</option>
-              <option>spicesNseasonings</option>
+              <option>spices</option>
             </select>
           </div>
 

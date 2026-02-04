@@ -53,10 +53,10 @@ function Products({addToCart}){
         <div className="products-filter mt-3">
             <button className="products-btn" onClick={()=>{setSelectedProducts("all")}}>All</button>
             <button className="products-btn" onClick={()=>{setSelectedProducts('Oils')}}>Oils</button>
-            <button className="products-btn" onClick={()=>{setSelectedProducts("vegetable")}}>Vegetables</button>
+            <button className="products-btn" onClick={()=>{setSelectedProducts("vegetables")}}>Vegetables</button>
             <button className="products-btn" onClick={()=>{setSelectedProducts("dairy")}}>Dairy</button>
-            <button className="products-btn" onClick={()=>{setSelectedProducts("Rice")}}>Rice Packets</button>
-            <button className="products-btn" onClick={()=>{setSelectedProducts("spicesNseasonings")}}>Spices & Seasonings</button>
+            <button className="products-btn" onClick={()=>{setSelectedProducts("rice")}}>Rice Packets</button>
+            <button className="products-btn" onClick={()=>{setSelectedProducts("spices")}}>Spices & Seasonings</button>
 
         </div>
         <div className='products-grid mt-4'>
