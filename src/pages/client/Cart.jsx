@@ -34,12 +34,18 @@ function Cart({ cart, setCart, removeItemFromCart }) {
             fetchCart();
         }, [userId,setCart]);
 
-    const setQuantity = (_id, quantity) => {
-        const updateCart = cart.map((p) =>
-            p._id === _id ? { ...p, quantity: Number(quantity) } : p
-        );
-        setCart(updateCart);
+    const setQuantity = async (productId, quantity) => {
+        if (quantity < 1) return;
+
+        const res = await axios.put(`${API_URL}/api/cart/update`, {
+            userId,
+            productId,
+            quantity
+        });
+
+        setCart(res.data.items);
     };
+
 
     const handleRemove = async (productId) => {
     const updated = await removeFromCart(userId, productId);
@@ -91,7 +97,7 @@ function Cart({ cart, setCart, removeItemFromCart }) {
                                     type="number"
                                     min={1}
                                     value={p.quantity}
-                                    onChange={(e) => setQuantity(p._id, e.target.value)}
+                                    onChange={(e) => setQuantity(p.productId._id, Number(e.target.value))}
                                 />
                                 </div>
                             </div>
