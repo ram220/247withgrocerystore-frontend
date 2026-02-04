@@ -34,7 +34,7 @@ function TopNavbar() {
   }, [navigate]);
 
   const handleLogout = () => {
-    localStorage.clear();
+    localStorage.clear("adminToken");
     setIsLoggedIn(false);
     navigate("/login");
   };
