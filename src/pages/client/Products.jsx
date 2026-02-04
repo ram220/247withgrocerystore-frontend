@@ -55,7 +55,7 @@ function Products({addToCart}){
             <button className="products-btn" onClick={()=>{setSelectedProducts('Oils')}}>Oils</button>
             <button className="products-btn" onClick={()=>{setSelectedProducts("vegetables")}}>Vegetables</button>
             <button className="products-btn" onClick={()=>{setSelectedProducts("dairy")}}>Dairy</button>
-            <button className="products-btn" onClick={()=>{setSelectedProducts("rice")}}>Rice Packets</button>
+            <button className="products-btn" onClick={()=>{setSelectedProducts("Rice")}}>Rice Packets</button>
             <button className="products-btn" onClick={()=>{setSelectedProducts("spices")}}>Spices & Seasonings</button>
 
         </div>
