@@ -45,12 +45,16 @@ function Products({addToCart}){
     })
     .catch(err => console.log(err));
 }, []);
+
+
     const [selectedProducts,setSelectedProducts]=useState("all")
     const filteredProducts= selectedProducts==="all"?products:products.filter((p)=>p.category===selectedProducts)
+
+
     return(
       <div>
-        <h2 className="text-center mt-3"> <strong><span style={{color:"rgb(255, 106, 0)"}}>Our</span> Products</strong></h2>
-        <div className="products-filter mt-3">
+          <h2 className="text-center mt-3"> <strong><span style={{color:"rgb(255, 106, 0)"}}>Our</span> Products</strong></h2>
+          <div className="products-filter mt-3">
             <button className="products-btn" onClick={()=>{setSelectedProducts("all")}}>All</button>
             <button className="products-btn" onClick={()=>{setSelectedProducts('Oils')}}>Oils</button>
             <button className="products-btn" onClick={()=>{setSelectedProducts("vegetables")}}>Vegetables</button>
@@ -58,61 +62,69 @@ function Products({addToCart}){
             <button className="products-btn" onClick={()=>{setSelectedProducts("Rice")}}>Rice Packets</button>
             <button className="products-btn" onClick={()=>{setSelectedProducts("spices")}}>Spices & Seasonings</button>
 
-        </div>
-        <div className='products-grid mt-4'>
-                {
-                    filteredProducts.map((p)=>(<div className='product-card' key={p._id}>
-                        <button disabled={!p.inStock} className='plus-btn' onClick={()=>addToCart(p)} title={p.inStock ? "Add to cart" : "Out of stock"}>+</button>
-    <img  src={`${p.image}`} className='product-img' alt={p.name}/>
-                        <div className='card-body d-flex flex-column'>
-                            <h4 className='text-center'>{p.name}</h4>
-                            <h5 className='text-center'>₹ {p.price}</h5>
-<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '10px 0' }}>
-  {
-    p.inStock?(<small
-    onClick={() => navigate(`/product_details/${p._id}`)}
-    style={{
-      border: 'none',
-      borderRadius: '3px',
-      backgroundColor: 'rgb(252, 107, 3)',
-      color: 'white',
-      width: '100px',
-      height: '30px',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      fontWeight: 'bold',
-      cursor:'pointer'
-    }}
-  >
-    view more
-  </small>):(<small
-    style={{
-      border: 'none',
-      borderRadius: '3px',
-      backgroundColor: 'rgba(252, 3, 3, 1)',
-      color: 'white',
-      width: '100px',
-      height: '30px',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      fontWeight: 'bold',
-    }}
-  >
-    Out of stock
-  </small>)
-  }
-</div>
-                        </div>
-                    </div>))
-                }
-        </div>
+          </div>
+          <div className='products-grid mt-4'>
+              {
+                filteredProducts.map((p)=>(<div className='product-card' key={p._id}>
+                <button disabled={!p.inStock} className='plus-btn' onClick={()=>addToCart(p)} title={p.inStock ? "Add to cart" : "Out of stock"}>+</button>
+                <img  src={`${p.image}`} className='product-img' alt={p.name}/>
+                <div className='card-body d-flex flex-column'>
+                  <h4 className='text-center'>{p.name}</h4>
+                  <h5 className="text-center">
+                      {p.isOffer ? (
+                      <>
+                        <span style={{ textDecoration: "line-through", color: "gray" }}>
+                          ₹{p.price}
+                        </span>{" "}
+                        <span style={{ color: "green", fontWeight: "bold" }}>
+                          ₹{Math.round(p.price - (p.price * p.discountPercentage) / 100)}
+                        </span>
+                      </>
+                      ) : (
+                      <>₹ {p.price}</>
+                        )}
+                  </h5>                  
+                  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '10px 0' }}>
+                    {
+                      p.inStock?(<small
+                      onClick={() => navigate(`/product_details/${p._id}`)}
+                      style={{
+                      border: 'none',
+                      borderRadius: '3px',
+                      backgroundColor: 'rgb(252, 107, 3)',
+                      color: 'white',
+                      width: '100px',
+                      height: '30px',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      fontWeight: 'bold',
+                      cursor:'pointer'
+                      }}>
+                      view more</small>):
+                      (<small
+                        style={{
+                          border: 'none',
+                          borderRadius: '3px',
+                          backgroundColor: 'rgba(252, 3, 3, 1)',
+                          color: 'white',
+                          width: '100px',
+                          height: '30px',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          fontWeight: 'bold',
+                        }}>Out of stock</small>)}
+                    </div>
+                  </div>
+                </div>))
+              }
+          </div>
 
 
         
-        <Footer/>
-      </div>
+          <Footer/>
+        </div>
 
     )
 }
