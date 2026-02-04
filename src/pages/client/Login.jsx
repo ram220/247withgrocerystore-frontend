@@ -90,13 +90,13 @@ function Login({setIsUserLoggedIn,setIsAdminLoggedIn,setCart}){
                             <h2 className="text-center" style={{color:"rgb(252, 107, 3)"}}>Login Here</h2>
                             <div className='mt-3'>
                                 <label>Email</label><br/>
-                                <input className='form-control' type="text" value={email} onChange={(e)=>{setEmail(e.target.value)}}/>
+                                <input className='form-control' type="email" autoComplete="email" value={email} onChange={(e)=>{setEmail(e.target.value)}}/>
                                 {errors.email&&<span className="text-danger">{errors.email}</span>}
                             </div>
 
                             <div className='mt-3'>
                                 <label>Password</label>
-                                <input className='form-control' type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}></input>
+                                <input className='form-control' type="password" autoComplete="current-password" value={password} onChange={(e)=>{setPassword(e.target.value)}}></input>
                                 {errors.password&&<span className="text-danger">{errors.password}</span>}
                             </div>
 

@@ -56,7 +56,7 @@ function Products({addToCart}){
             <button className="products-btn" onClick={()=>{setSelectedProducts("vegetable")}}>Vegetables</button>
             <button className="products-btn" onClick={()=>{setSelectedProducts("dairy")}}>Dairy</button>
             <button className="products-btn" onClick={()=>{setSelectedProducts("Rice")}}>Rice Packets</button>
-            <button className="products-btn" onClick={()=>{setSelectedProducts("Spices")}}>Spice Blend</button>
+            <button className="products-btn" onClick={()=>{setSelectedProducts("spicesNseasonings")}}>Spices & Seasonings</button>
 
         </div>
         <div className='products-grid mt-4'>

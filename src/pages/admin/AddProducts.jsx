@@ -147,6 +147,7 @@ function AddProducts() {
               <option>vegetable</option>
               <option>dairy</option>
               <option>Rice</option>
+              <option>spicesNseasonings</option>
             </select>
           </div>
 
