@@ -13,6 +13,7 @@ function OrderSummary({ cart,setCart }) {
   const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
   //const API_URL = "http://localhost:5000";
 
+  const DELIVERY_CHARGE = 20;
 
   useEffect(() => {
     axios
@@ -25,7 +26,21 @@ function OrderSummary({ cart,setCart }) {
   }, [userId]);
 
 
-  const total = (cart.reduce((acc, item) => acc + item.productId.price * item.quantity, 0) * 1.02).toFixed(2);
+const getFinalPrice = (product) => {
+  if (product.isOffer && product.discountPercentage > 0) {
+    return Math.round(
+      product.price - (product.price * product.discountPercentage) / 100
+    );
+  }
+  return product.price;
+};
+
+const itemsTotal = cart.reduce(
+  (acc, item) => acc + getFinalPrice(item.productId) * item.quantity,
+  0
+);
+
+const total = itemsTotal + DELIVERY_CHARGE;
   
 
   // handle place order
@@ -35,23 +50,31 @@ const placeOrder = async () => {
     return; 
   }
 
-  const userId = localStorage.getItem("userId");
-  const formattedItems = cart.map(item => ({
-    productId: item.productId._id,
-    quantity: item.quantity,
-    price: item.productId.price
-  }));
+  if (!address || !mobile) {
+  alert("Please add delivery address and mobile number");
+  return;
+}
 
-  const totalAmount = formattedItems.reduce(
+
+const formattedItems = cart.map(item => ({
+  productId: item.productId._id,
+  quantity: item.quantity,
+  price: getFinalPrice(item.productId)
+}));
+
+
+const totalAmount =
+  formattedItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
-  );
-  const totalAmountWithTax = totalAmount * 1.02;
+  ) + DELIVERY_CHARGE;
 
+
+  
   if (paymentMethod === "UPI") {
   try {
     const res = await axios.post(`${API_URL}/api/payment/init`, {
-      amount: totalAmountWithTax,
+      amount: totalAmount,
       userId,
       items: formattedItems
     });
@@ -71,10 +94,15 @@ const placeOrder = async () => {
           });
 
           if (verifyRes.data.success) {
-            alert("✅ Payment successful! Order placed.");
-            setCart([]); // clear cart in frontend
-          } else {
-            alert("❌ Payment verification failed");
+              await axios.post(`${API_URL}/api/orders`, {
+                userId,
+                items: formattedItems,
+                totalAmount,
+                paymentMethod: "UPI"
+              });
+
+              alert("✅ Payment successful! Order placed.");
+              setCart([]);
           }
         } catch (err) {
           console.error("Verify error", err);
@@ -172,34 +200,22 @@ const placeOrder = async () => {
         </div>
 
         <div className="mt-2">
-          <div className="price d-flex justify-content-between">
-            <small>Price</small>
-            <small>
-              ₹{cart.reduce((acc, item) => acc + item.productId.price * item.quantity, 0)}
-            </small>
-          </div>
+  <div className="price d-flex justify-content-between">
+    <small>Items Total</small>
+    <small>₹{itemsTotal}</small>
+  </div>
 
-          <div className="mt-1 d-flex justify-content-between">
-            <small>Shipping Fee</small>
-            <small>
-              <span style={{ color: "rgb(252, 107, 3)" }}>Free</span>
-            </small>
-          </div>
+  <div className="d-flex justify-content-between">
+    <small>Delivery Charge</small>
+    <small>₹{DELIVERY_CHARGE}</small>
+  </div>
 
-          <div className="mt-1 d-flex justify-content-between">
-            <small>Tax (2%)</small>
-            <small>
-              ₹
-              {(
-                cart.reduce((acc, item) => acc + item.productId.price * item.quantity, 0) * 0.02
-              ).toFixed(2)}
-            </small>
-          </div>
+  <div className="d-flex justify-content-between mt-1">
+    <small><strong>Total</strong></small>
+    <small><strong>₹{total}</strong></small>
+  </div>
+</div>
 
-          <div className="mt-1 d-flex justify-content-between">
-            <small>Total</small>
-            <small>₹{total}</small>
-          </div>
 
           <div className="place-order-btn mt-2">
             <button
@@ -217,7 +233,6 @@ const placeOrder = async () => {
           </div>
         </div>
       </div>
-    </div>
   );
 }
 export default OrderSummary;

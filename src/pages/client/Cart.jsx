@@ -10,6 +10,17 @@ function Cart({ cart, setCart, removeItemFromCart }) {
   const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
   //const API_URL = "http://localhost:5000";
 
+
+    const getFinalPrice = (product) => {
+        if (product.isOffer && product.discountPercentage > 0) {
+            return Math.round(
+            product.price - (product.price * product.discountPercentage) / 100
+            );
+        }
+        return product.price;
+    };
+
+
         useEffect(() => {
                 const fetchCart = async () => {
                 if (!userId) return;   // 👈 stop if no user
@@ -67,7 +78,15 @@ function Cart({ cart, setCart, removeItemFromCart }) {
                                 />
                                 <div>
                                 <h6 className="mb-1">{p.productId.name}</h6>
-                                <small className="mb-1">₹{p.productId.price}</small><br />
+                                <small className="mb-1">
+                                    ₹{getFinalPrice(p.productId)}
+                                    {p.productId.isOffer && (
+                                    <span style={{ textDecoration: "line-through", color: "gray", marginLeft: 6 }}>
+                                    ₹{p.productId.price}
+                                    </span>
+                                    )}
+                                </small>
+
                                 <input
                                     type="number"
                                     min={1}
@@ -77,8 +96,9 @@ function Cart({ cart, setCart, removeItemFromCart }) {
                                 </div>
                             </div>
                             <div className="cart-subtotal">
-                                ₹{p.productId.price * p.quantity}
+                                ₹{getFinalPrice(p.productId) * p.quantity}
                             </div>
+
                             <div className="cart-action">
                                 <button
                                 className="cart-remove-btn"
