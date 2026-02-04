@@ -31,6 +31,11 @@ function AddProducts() {
     e.preventDefault();
 
     // build FormData exactly as your backend expects
+    if (!productCategory) {
+  alert("Please select a category");
+  return;
+}
+
     const formData = new FormData();
     formData.append("name", productName);
     formData.append("category", productCategory);
@@ -45,9 +50,8 @@ function AddProducts() {
     if (image?.file) {
       formData.append("image", image.file);  // ✅ single image field name
     }
-    const token = localStorage.getItem('adminToken');
+    const token = localStorage.getItem('token');
 
-    console.log("token in add product page: ",token);
 
     setLoading(true);
 
@@ -138,7 +142,7 @@ function AddProducts() {
               value={productCategory}
               onChange={(e) => { setProductCategory(e.target.value) }}
             >
-              <option>Select Category</option>
+              <option value="">Select Category</option>
               <option>Oils</option>
               <option>vegetable</option>
               <option>dairy</option>
