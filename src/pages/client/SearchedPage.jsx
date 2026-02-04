@@ -58,7 +58,28 @@ function SearchedPage({ addToCart }) {
 
                 <div className="card-body d-flex flex-column">
                   <h5 className="card-title text-truncate">{item.name}</h5>
-                  <p className="card-text">₹{item.price}</p>
+                  
+                  <p className="card-text">
+                    ₹{" "}
+                    {item.isOffer
+                      ? Math.round(item.price - (item.price * item.discountPercentage) / 100)
+                      : item.price}
+
+                    {item.isOffer && (
+                      <span
+                        style={{
+                          marginLeft: "6px",
+                          textDecoration: "line-through",
+                          color: "gray",
+                          fontSize: "13px",
+                        }}
+                      >
+                        ₹{item.price}
+                      </span>
+                    )}
+                  </p>
+
+
 
                   {/* Shop Now / Out of Stock */}
                   {item.inStock ? (

@@ -52,7 +52,27 @@ function ProductDetails({ addToCart }) {
 
         <div className="col-md-7">
           <h2>{product.name}</h2>
-          <h4 className="text-success">₹ {product.price}</h4>
+          <h4 className="text-success">
+                      ₹{" "}
+                      {product.isOffer
+                        ? Math.round(
+                          product.price -
+                          (product.price * product.discountPercentage) / 100
+                        )
+                        : product.price}
+
+                      {product.isOffer && (
+                        <span
+                          style={{
+                          marginLeft: "10px",
+                          textDecoration: "line-through",
+                          color: "gray",
+                          fontSize: "16px",
+                          }}>
+                          ₹{product.price}
+                        </span>
+                      )}
+          </h4>
           
           {/* Product Description */}
           {product.description && (
@@ -93,7 +113,9 @@ function ProductDetails({ addToCart }) {
 
                 <div className="card-body text-center">
                   <h6 className="text-truncate">{r.name}</h6>
-                  <p>₹ {r.price}</p>
+                  <p>₹{" "}
+                    {r.isOffer ? Math.round(r.price - (r.price * r.discountPercentage) / 100)
+                                : r.price} </p>
                 </div>
               </div>
             ))}
