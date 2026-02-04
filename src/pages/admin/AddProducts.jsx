@@ -50,7 +50,7 @@ function AddProducts() {
     if (image?.file) {
       formData.append("image", image.file);  // ✅ single image field name
     }
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('adminToken');
 
 
     setLoading(true);
