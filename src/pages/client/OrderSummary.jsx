@@ -10,8 +10,8 @@ function OrderSummary({ cart,setCart }) {
 
   const navigate=useNavigate();
 
-  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-  const API_URL = "http://localhost:5000";
+  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  //const API_URL = "http://localhost:5000";
 
   const DELIVERY_CHARGE = 20;
 
