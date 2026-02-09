@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 function Register() {
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-  //const API_URL = "http://localhost:5000";
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  const API_URL = "http://localhost:5000";
 
 
   const [formData, setFormData] = useState({

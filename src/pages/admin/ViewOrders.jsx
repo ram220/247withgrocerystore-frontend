@@ -9,8 +9,8 @@ function ViewOrders() {
   const token = localStorage.getItem("adminToken"); // Admin token
   const limit = 2; // orders per page
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-  //const API_URL = "http://localhost:5000";
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  const API_URL = "http://localhost:5000";
 
   // Fetch orders with pagination
   const fetchOrders = useCallback(async (page = 1) => {
@@ -71,7 +71,14 @@ function ViewOrders() {
               <p>User: <strong>{order.userId.name} ({order.userId.email})</strong></p>
               <p>Address: <strong>{order.userId.address}</strong></p>
               <p>Mobile: <strong>{order.userId.mobile}</strong></p>
-              <p>Status: <strong>{order.status}</strong></p>
+             <p>Status: <strong>{order.status}</strong></p>
+              <p>
+                Payment Method: 
+                <strong style={{ marginLeft: "5px" }}>
+                  {order.paymentMethod === "UPI" ? "UPI (Online)" : "Cash On Delivery"}
+                </strong>
+              </p>
+
               <p>Date: {new Date(order.orderDate).toLocaleString()}</p>
               <p>Total Amount: ₹{order.totalAmount}</p>
 

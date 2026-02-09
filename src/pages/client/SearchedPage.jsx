@@ -12,8 +12,8 @@ function SearchedPage({ addToCart }) {
   const queryParams = new URLSearchParams(location.search);
   const keyword = queryParams.get("keyword");
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-  //  const API_URL = "http://localhost:5000";
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+    const API_URL = "http://localhost:5000";
 
 
   useEffect(() => {
@@ -53,7 +53,7 @@ function SearchedPage({ addToCart }) {
                   src={item.image}
                   alt={item.name}
                   className="card-img-top"
-                  style={{ height: "180px", objectFit:"fill" }}
+                  style={{ height: "180px", objectFit:"contain" }}
                 />
 
                 <div className="card-body d-flex flex-column">

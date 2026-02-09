@@ -10,8 +10,8 @@ function OrderSummary({ cart,setCart }) {
 
   const navigate=useNavigate();
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-  //const API_URL = "http://localhost:5000";
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  const API_URL = "http://localhost:5000";
 
   const DELIVERY_CHARGE = 20;
 
@@ -94,13 +94,6 @@ const totalAmount =
           });
 
           if (verifyRes.data.success) {
-              await axios.post(`${API_URL}/api/orders`, {
-                userId,
-                items: formattedItems,
-                totalAmount,
-                paymentMethod: "UPI"
-              });
-
               alert("✅ Payment successful! Order placed.");
               setCart([]);
           }

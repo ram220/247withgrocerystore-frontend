@@ -5,8 +5,8 @@ function Orders() {
   const [orders, setOrders] = useState([]);
   const userId = localStorage.getItem("userId");
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-  //const API_URL = "http://localhost:5000";
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  const API_URL = "http://localhost:5000";
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -42,7 +42,12 @@ function Orders() {
         orders.map((order) => (
           <div key={order._id} className="border p-3 mb-3 rounded">
             <h6>Order ID: {order._id}</h6>
-            <p>Status: <strong>{order.status}</strong></p>
+            <p>
+              Payment Method: 
+              <strong style={{ marginLeft: "5px" }}>
+                {order.paymentMethod === "UPI" ? "UPI (Online)" : "Cash On Delivery"}
+              </strong>
+            </p>
             <p>Date: {new Date(order.orderDate).toLocaleString()}</p>
             <p>Total Amount: ₹{order.totalAmount.toFixed(2)}</p>
 

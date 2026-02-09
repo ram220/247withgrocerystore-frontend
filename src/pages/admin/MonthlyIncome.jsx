@@ -14,8 +14,8 @@ function ViewOrders() {
   const [data, setData] = useState([]);
   const [totalIncome, setTotalIncome] = useState(0);
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-  //const API_URL = "http://localhost:5000";
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  const API_URL = "http://localhost:5000";
 
   useEffect(() => {
   const fetchIncome = async () => {
