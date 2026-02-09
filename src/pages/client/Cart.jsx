@@ -32,7 +32,7 @@ function Cart({ cart, setCart, removeItemFromCart }) {
                 }
             };
             fetchCart();
-        }, [userId]);
+        }, [userId,setCart]);
 
     const setQuantity = async (productId, quantity) => {
         if (quantity < 1) return;
