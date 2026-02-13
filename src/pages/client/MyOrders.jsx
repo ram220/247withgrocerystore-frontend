@@ -5,8 +5,8 @@ function Orders() {
   const [orders, setOrders] = useState([]);
   const userId = localStorage.getItem("userId");
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-  //const API_URL = "http://localhost:5000";
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  const API_URL = "http://localhost:5000";
 
   useEffect(() => {
     const fetchOrders = async () => {

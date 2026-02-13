@@ -9,8 +9,8 @@ function ChatBot({setCart}) {
   const [input, setInput] = useState("");
   const messagesEndRef = useRef(null);
 
-    const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-  //const API_URL = "http://localhost:5000";
+  //  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  const API_URL = "http://localhost:5000";
 
   // Auto scroll to bottom
   useEffect(() => {
@@ -57,6 +57,8 @@ const res = await fetch(`${API_URL}/api/chatbot`, {
       window.SpeechRecognition || window.webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
     recognition.lang = "en-IN";
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
     recognition.start();
 
     recognition.onresult = (e) => {
