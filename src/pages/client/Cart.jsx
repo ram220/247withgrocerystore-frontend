@@ -7,8 +7,8 @@ import './Cart.css'
 function Cart({ cart, setCart, removeItemFromCart }) {
         const userId = localStorage.getItem("userId");
 
-  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-  const API_URL = "http://localhost:5000";
+  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  //const API_URL = "http://localhost:5000";
 
 
     const getFinalPrice = (product) => {
