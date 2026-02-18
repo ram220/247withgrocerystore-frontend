@@ -14,8 +14,8 @@ function AddProducts() {
 
 
 
-  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com"; 
-  const API_URL = "http://localhost:5000";
+  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com"; 
+  //const API_URL = "http://localhost:5000";
 
   const handleFileChange = (e, index) => {
     const file = e.target.files[0];
