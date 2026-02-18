@@ -7,8 +7,8 @@ import './Cart.css'
 function Cart({ cart, setCart, removeItemFromCart }) {
         const userId = localStorage.getItem("userId");
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-  //const API_URL = "http://localhost:5000";
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  const API_URL = "http://localhost:5000";
 
 
     const getFinalPrice = (product) => {
@@ -34,13 +34,14 @@ function Cart({ cart, setCart, removeItemFromCart }) {
             fetchCart();
         }, [userId,setCart]);
 
-    const setQuantity = async (productId, quantity) => {
-        if (quantity < 1) return;
+    const setQuantity = async (productId, value,type) => {
+        if (value <= 0) return;
 
         const res = await axios.put(`${API_URL}/api/cart/update`, {
             userId,
             productId,
-            quantity
+            quantity: type === "KG" ? 1 : value,
+            weight: type === "KG" ? value : null
         });
 
         setCart(res.data.items);
@@ -85,24 +86,49 @@ function Cart({ cart, setCart, removeItemFromCart }) {
                                 <div>
                                 <h6 className="mb-1">{p.productId.name}</h6>
                                 <small className="mb-1">
-                                    ₹{getFinalPrice(p.productId)}
-                                    {p.productId.isOffer && (
-                                    <span style={{ textDecoration: "line-through", color: "gray", marginLeft: 6 }}>
-                                    ₹{p.productId.price}
-                                    </span>
+                                    ₹{(
+                                        getFinalPrice(p.productId) *
+                                        (p.productId.unit === "KG" ? (p.weight || 1) : p.quantity)
+                                        ).toFixed(2)
+                                    }
+
+                                    {p.productId.unit === "KG" && (
+                                        <span style={{ fontSize: "12px", color: "gray" }}>
+                                        {" "}({p.weight} Kg)
+                                        </span>
                                     )}
                                 </small>
 
+
+                                {p.productId.unit === "KG" ? (
+                                <input
+                                    type="number"
+                                    min={0.25}
+                                    step={0.25}
+                                    value={p.weight || 1}
+                                    onChange={(e) =>
+                                    setQuantity(p.productId._id, Number(e.target.value), "KG")
+                                    }
+                                />
+                                ) : (
                                 <input
                                     type="number"
                                     min={1}
-                                    value={p.quantity}
-                                    onChange={(e) => setQuantity(p.productId._id, Number(e.target.value))}
+                                    value={p.productId.unit === "KG" ? p.weight : p.quantity}
+                                    onChange={(e) =>
+                                    setQuantity(p.productId._id, Number(e.target.value))
+                                    }
                                 />
+                                )}
                                 </div>
                             </div>
                             <div className="cart-subtotal">
-                                ₹{getFinalPrice(p.productId) * p.quantity}
+                                ₹{(
+                                    getFinalPrice(p.productId) *
+                                    (p.productId.unit === "KG" ? (p.weight || 1) : p.quantity)
+                                    ).toFixed(2)
+                                }
+                            
                             </div>
 
                             <div className="cart-action">

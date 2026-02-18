@@ -10,8 +10,8 @@ function OrderSummary({ cart,setCart }) {
 
   const navigate=useNavigate();
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-  //const API_URL = "http://localhost:5000";
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  const API_URL = "http://localhost:5000";
 
   const DELIVERY_CHARGE = 20;
 
@@ -35,10 +35,13 @@ const getFinalPrice = (product) => {
   return product.price;
 };
 
-const itemsTotal = cart.reduce(
-  (acc, item) => acc + getFinalPrice(item.productId) * item.quantity,
-  0
-);
+const itemsTotal = cart.reduce((acc, item) => {
+  const multiplier =
+    item.productId.unit === "KG" ? item.weight : item.quantity;
+
+  return acc + getFinalPrice(item.productId) * multiplier;
+}, 0);
+
 
 const total = itemsTotal + DELIVERY_CHARGE;
   
@@ -58,7 +61,7 @@ const placeOrder = async () => {
 
 const formattedItems = cart.map(item => ({
   productId: item.productId._id,
-  quantity: item.quantity,
+  quantity: item.productId.unit === "KG" ? item.weight : item.quantity,
   price: getFinalPrice(item.productId)
 }));
 

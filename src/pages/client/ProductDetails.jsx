@@ -9,8 +9,8 @@ function ProductDetails({ addToCart }) {
   console.log("Product ID from URL:", id, id.length);
 
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-  //const API_URL = "http://localhost:5000";
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  const API_URL = "http://localhost:5000";
 
 
   const [product, setProduct] = useState(null);
@@ -80,15 +80,43 @@ function ProductDetails({ addToCart }) {
           )}
 
           {product.inStock ? (
-            <button
-              className="btn btn-secondary btn-sm mt-3" style={{backgroundColor:"rgb(252, 107, 3)"}}
-              onClick={() => addToCart(product)}
-            >
-              Add to Cart
-            </button>
-          ) : (
-            <p className="text-danger mt-3">Out of Stock</p>
-          )}
+  product.unit === "KG" ? (
+    <div className="mt-3">
+      <button
+        className="btn btn-outline-secondary btn-sm me-2"
+        onClick={() => addToCart(product,1, 0.25)}
+      >
+        250 g
+      </button>
+
+      <button
+        className="btn btn-outline-secondary btn-sm me-2"
+        onClick={() => addToCart(product,1, 0.5)}
+      >
+        500 g
+      </button>
+
+      <button
+        className="btn btn-secondary btn-sm"
+        style={{ backgroundColor: "rgb(252, 107, 3)" }}
+        onClick={() => addToCart(product,1, 1)}
+      >
+        1 Kg
+      </button>
+    </div>
+  ) : (
+    <button
+      className="btn btn-secondary btn-sm mt-3"
+      style={{ backgroundColor: "rgb(252, 107, 3)" }}
+      onClick={() => addToCart(product, 1)}
+    >
+      Add to Cart
+    </button>
+  )
+) : (
+  <p className="text-danger mt-3">Out of Stock</p>
+)}
+
         </div>
       </div>
 

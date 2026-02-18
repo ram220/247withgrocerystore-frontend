@@ -34,8 +34,8 @@ function Products({addToCart}){
         const [products,setProducts]=useState([]);
 
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-  //  const API_URL = "http://localhost:5000";
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+    const API_URL = "http://localhost:5000";
 
 
    useEffect(() => {
@@ -60,6 +60,7 @@ function Products({addToCart}){
             <button className="products-btn" onClick={()=>{setSelectedProducts("vegetables")}}>Vegetables</button>
             <button className="products-btn" onClick={()=>{setSelectedProducts("dairy")}}>Dairy</button>
             <button className="products-btn" onClick={()=>{setSelectedProducts("Rice")}}>Rice Packets</button>
+            <button className="products-btn" onClick={()=>{setSelectedProducts("Dals")}}>Dals</button>
             <button className="products-btn" onClick={()=>{setSelectedProducts("spices")}}>Spices & Seasonings</button>
 
           </div>

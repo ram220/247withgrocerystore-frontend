@@ -7,8 +7,8 @@ function ViewProducts() {
   const [totalPages, setTotalPages] = useState(1);
   const limit = 6; // number of products per page
 
-  const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
-  //const API_URL = "http://localhost:5000";
+  //const API_URL = "https://two47withgrocerystoreram-backend.onrender.com";
+  const API_URL = "http://localhost:5000";
   // Fetch products from backend
   const fetchProducts = async (pageNum = 1) => {
     try {
